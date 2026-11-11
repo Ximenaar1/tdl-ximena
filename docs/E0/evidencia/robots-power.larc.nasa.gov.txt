@@ -1,0 +1,32 @@
+# HTTP 200
+User-agent: *
+Allow: /api/pages/
+Disallow: /api/
+Disallow: /beta/
+Disallow: /classic/
+Disallow: /healthz.html
+Disallow: /common/
+Disallow: /article/assets/
+Disallow: /_next/
+Disallow: /*.map$
+
+# AI crawlers â block training data scraping
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+Sitemap: https://power.larc.nasa.gov/sitemap.xml
