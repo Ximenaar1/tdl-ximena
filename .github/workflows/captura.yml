@@ -1,0 +1,48 @@
+name: captura
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"      # cada 6 horas (UTC)
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "historico (primera vez) o incremental"
+        default: "incremental"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: captura
+  cancel-in-progress: false
+
+jobs:
+  capturar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TDL_CONTACTO: ${{ github.server_url }}/${{ github.repository }}
+      MODO: ${{ github.event.inputs.modo || 'incremental' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Evidencia de robots.txt
+        run: python -m extractores.verificar_robots
+      - name: Capturar a la capa Bronce
+        run: python -m extractores.captura --modo "$MODO"
+      - name: Verificar serie historica (36 meses)
+        if: env.MODO == 'historico'
+        run: python -m pipeline.verificar_bronce
+      - name: Guardar resultados en el repositorio
+        if: always()
+        run: |
+          git config user.name "tdl-captura-bot"
+          git config user.email "tdl-captura-bot@users.noreply.github.com"
+          git add data calidad docs/E0/evidencia
+          git diff --cached --quiet || git commit -m "captura (${MODO}): ${GITHUB_RUN_ID}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
