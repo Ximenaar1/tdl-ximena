@@ -21,7 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      TDL_CONTACTO: ${{ github.server_url }}/${{ github.repository }}
+      # Variable del repo (Settings > Secrets and variables > Actions > Variables): correo institucional y repo
+      TDL_CONTACTO: ${{ vars.TDL_CONTACTO || format('{0}/{1}', github.server_url, github.repository) }}
       MODO: ${{ github.event.inputs.modo || 'incremental' }}
     steps:
       - uses: actions/checkout@v4

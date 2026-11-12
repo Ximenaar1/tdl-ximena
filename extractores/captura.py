@@ -60,7 +60,8 @@ def ejecutar(modo, hoy=None, ext=None, raiz=RAIZ):
         try:
             r = ext.get(p["url"])
             guardar_bronce(raiz, p, r, r.json(), run_id, modo, ahora)
-            fila.update(resultado="ok", http_status=r.status_code, bytes=len(r.content), mensaje="")
+            fila.update(resultado="ok", http_status=r.status_code, bytes=len(r.content),
+                        mensaje=getattr(r, "nota_robots", ""))
         except Exception as e:  # se registra siempre: nada falla en silencio
             fallos += 1
             fila.update(resultado="error", http_status="", bytes=0, mensaje=str(e)[:200].replace("\n", " "))

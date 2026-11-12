@@ -77,17 +77,25 @@ El uso de dos fuentes independientes permite, además, comparar la misma variabl
 
 | Aspecto | Open-Meteo | NASA POWER |
 |---|---|---|
-| **`robots.txt`** | Se descarga y se guarda en cada corrida en `docs/E0/evidencia/robots-<dominio>.txt`, con el resumen en `resumen-robots.txt`. Resultado: `[COMPLETAR tras la primera corrida]` | Igual. Resultado: `[COMPLETAR tras la primera corrida]` |
-| **Términos de uso** | La API es gratuita para uso no comercial, con límites de uso diarios (alrededor de 10,000 llamadas al día en la capa gratuita). `[VERIFICAR el texto vigente en open-meteo.com/en/terms y anotar la fecha de consulta]` | Datos públicos y de acceso libre; se pide reconocer a NASA POWER como fuente. `[VERIFICAR el texto vigente en la página de datos de POWER y anotar la fecha]` |
+| **`robots.txt`** | Se descarga y se guarda en cada corrida en `docs/E0/evidencia/robots-<dominio>.txt`, con el resumen en `resumen-robots.txt`. Resultado (11-nov-2026): HTTP 200, `User-agent: *` / `Disallow: /`. Ver la sección 5.3 | Igual. Resultado (11-nov-2026): HTTP 200, `Disallow: /api/` para todos los agentes, además de bloqueos explícitos a rastreadores de IA (GPTBot, CCBot, etc.). Ver la sección 5.3 |
+| **Términos de uso** | La API es gratuita para uso no comercial, con límites de uso diarios (alrededor de 10,000 llamadas al día en la capa gratuita). Términos: https://open-meteo.com/en/terms `[VERIFICAR el texto vigente y anotar la fecha de consulta]` | Datos públicos y de acceso libre; se pide reconocer a NASA POWER como fuente. Documentación y condiciones: https://power.larc.nasa.gov/docs/ `[VERIFICAR el texto vigente y anotar la fecha de consulta]` |
 | **Licencia de los datos** | Creative Commons Atribución 4.0 (CC BY 4.0): se debe citar a Open-Meteo | Datos de la NASA de uso abierto con reconocimiento de la fuente |
 | **Privacidad** | No hay datos de personas: solo variables meteorológicas por coordenada | No hay datos de personas |
 | **Sesgos y limitaciones** | Son datos de modelos de reanálisis con malla de decenas de kilómetros, no mediciones de estación: la lluvia local y la sierra pueden estar subestimadas o suavizadas | Misma limitación por resolución espacial; las dos fuentes no son totalmente independientes porque usan modelos similares |
 
-**Reglas del extractor:** se identifica con un *User-Agent* honesto que incluye un contacto, verifica `robots.txt` antes de cada petición, espera mínimo 1.5 segundos entre peticiones al mismo dominio, reintenta con espera exponencial ante errores 429 o 5xx y registra cada petición en una bitácora. Si una fuente prohibiera la ruta, se buscaría otra.
+**Reglas del extractor:** se identifica con un *User-Agent* honesto que incluye el correo institucional y el repositorio del proyecto, descarga y evalúa `robots.txt` antes de consultar cada dominio, espera mínimo 1.5 segundos entre peticiones al mismo dominio (o el `Crawl-delay` si es mayor), reintenta con espera exponencial ante errores 429 o 5xx y registra cada petición en una bitácora. Para páginas web, si `robots.txt` prohíbe la ruta, la petición no se hace y se busca otra fuente. Para las APIs REST oficiales y documentadas, se aplica la política descrita en la sección 5.3.
 
 **Nota sobre el uso comercial:** la gratuidad de Open-Meteo es para uso no comercial. Si el observatorio llegara a venderse como servicio, habría que contratar su plan comercial o cambiar de fuente. Esto se considerará en el modelo de negocio de E4.
 
-### 5.3 Captura y almacenamiento
+### 5.3 Hallazgo de la primera corrida: bloqueo por `robots.txt` y uso legítimo de las APIs
+
+En la primera corrida real de la captura (11 de noviembre de 2026, corrida `43112866220` de GitHub Actions), el extractor ético rechazó las 120 peticiones antes de enviarlas, con el motivo "robots.txt no permite", registrado en `calidad/bitacora_captura.csv`. La evidencia guardada en `docs/E0/evidencia/` muestra que ambos sitios responden su `robots.txt` con HTTP 200: Open-Meteo declara `Disallow: /` para todos los agentes y NASA POWER declara `Disallow: /api/`, además de bloquear de forma explícita a rastreadores de inteligencia artificial.
+
+El Protocolo de Exclusión de Robots está dirigido a rastreadores (*crawlers*) que recorren e indexan páginas HTML. Ambas fuentes, en cambio, publican sus APIs REST precisamente para el acceso programático: Open-Meteo aparece incluso en la tabla de fuentes recomendadas del proyecto como "API sin llave". Por eso, el 11 de noviembre se consultó al docente de Ingeniería de Datos, quien el 12 de noviembre autorizó continuar con ambas APIs oficiales, con dos condiciones: un *User-Agent* personalizado con el correo institucional y los datos del proyecto, y pausas entre llamadas.
+
+Con base en eso, el extractor distingue dos casos. En las páginas web, `robots.txt` sigue siendo obligatorio y bloquea la petición. En los dominios de APIs documentadas (`archive-api.open-meteo.com`, `api.open-meteo.com` y `power.larc.nasa.gov`), `robots.txt` se sigue descargando y guardando como evidencia en cada corrida, pero no bloquea la petición, y cada registro de la bitácora lo anota en la columna `mensaje`. La pausa mínima, el *User-Agent* y los reintentos aplican igual. El caso se registró como defecto 1 en `calidad/defectos-ximena.csv`, y el comportamiento está cubierto por pruebas automáticas (`tests/test_base.py`).
+
+### 5.4 Captura y almacenamiento
 
 - **Capa Bronce:** cada respuesta se guarda tal como llegó, dentro de un archivo JSON con sus metadatos (fuente, URL, fecha de captura, código HTTP, huella `sha256` y número de corrida), en `data/bronce/<fuente>/fecha_captura=<fecha>/`.
 - **Captura programada:** el flujo `.github/workflows/captura.yml` corre cada 6 horas en GitHub Actions: guarda evidencia de `robots.txt`, descarga el pronóstico a 7 días (Open-Meteo) y los últimos 10 días (NASA POWER) y sube los resultados al repositorio.
@@ -96,7 +104,7 @@ El uso de dos fuentes independientes permite, además, comparar la misma variabl
 
 ## 6. Arranque del sistema de calidad
 
-Se abrieron `calidad/tiempo-ximena.csv` y `calidad/defectos-ximena.csv` y se definieron tres objetivos medibles (`calidad/objetivos.md`): disponibilidad de la captura de al menos 95 %, completitud de 36 o más meses en los 10 municipios y 100 % de peticiones que respetan `robots.txt` y la pausa mínima. Al ser un equipo de una persona, la revisión de pares del *Quality Lead* no puede hacerse; se declara en la ficha de entrega.
+Se abrieron `calidad/tiempo-ximena.csv` y `calidad/defectos-ximena.csv` y se definieron tres objetivos medibles (`calidad/objetivos.md`): disponibilidad de la captura de al menos 95 %, completitud de 36 o más meses en los 10 municipios y 100 % de peticiones que cumplen la política de `robots.txt` (bloqueo en páginas web y evidencia más excepción autorizada en APIs documentadas) y la pausa mínima. Al ser un equipo de una persona, la revisión de pares del *Quality Lead* no puede hacerse; se declara en la ficha de entrega.
 
 ## 7. Uso de IA generativa
 
@@ -104,6 +112,7 @@ Se usó Claude (Anthropic) para estructurar los documentos y escribir el código
 
 ## 8. Referencias
 
-- Open-Meteo. *Historical Weather API* y términos de uso. https://open-meteo.com
-- NASA. *Prediction Of Worldwide Energy Resources (POWER)*. https://power.larc.nasa.gov
+- Open-Meteo. *Historical Weather API*. https://open-meteo.com — Términos de uso: https://open-meteo.com/en/terms
+- NASA. *Prediction Of Worldwide Energy Resources (POWER)*. https://power.larc.nasa.gov — Documentación: https://power.larc.nasa.gov/docs/
+- IETF (2022). *RFC 9309: Robots Exclusion Protocol*. https://www.rfc-editor.org/rfc/rfc9309
 - Proyecto Integrador Trusted Data Lab, Tecnológico Nacional de México (30 de octubre de 2026).

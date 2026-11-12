@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 
 import requests
 
-from .base import UA
+from .base import APIS_DOCUMENTADAS, UA
 from .fuentes import NASA, OM_ARCHIVE, OM_FORECAST
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -31,7 +31,11 @@ def main():
             permitido = rp.can_fetch(UA, url)
         else:
             permitido = "sin robots.txt valido (revisar manualmente)"
-        resumen.append(f"{p.netloc}: HTTP {estado}; ruta {p.path} permitida: {permitido}")
+        linea = f"{p.netloc}: HTTP {estado}; ruta {p.path} permitida: {permitido}"
+        if permitido is False and p.netloc in APIS_DOCUMENTADAS:
+            linea += (f" -> API REST documentada; se usa con autorizacion del docente (2026-11-12)."
+                      f" Terminos: {APIS_DOCUMENTADAS[p.netloc]}")
+        resumen.append(linea)
     (DESTINO / "resumen-robots.txt").write_text("\n".join(resumen) + "\n", encoding="utf-8")
     print("\n".join(resumen))
 

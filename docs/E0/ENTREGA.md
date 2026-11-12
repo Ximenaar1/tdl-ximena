@@ -10,7 +10,7 @@ El observatorio captura clima diario de los 10 municipios de Colima desde dos fu
 
 | Criterio de la rúbrica | Evidencia | Nota del equipo |
 |---|---|---|
-| Plan de recopilación (estructura, formato, frecuencia, `robots.txt`, términos) | [propuesta.md, sección 5](propuesta.md) y [evidencia robots](evidencia/) | Resultado de `robots.txt` y fecha de consulta de términos: ver `[COMPLETAR]` en la propuesta |
+| Plan de recopilación (estructura, formato, frecuencia, `robots.txt`, términos) | [propuesta.md, sección 5](propuesta.md) y [evidencia robots](evidencia/) | Ambos `robots.txt` prohíben la ruta; uso de las APIs documentadas autorizado por el docente de Ing. de Datos (12-nov-2026), ver propuesta sección 5.3. Fecha de consulta de términos: `[COMPLETAR]` |
 | Captura y serie histórica (2 fuentes, 1 programada, 36+ periodos) | [captura.yml](../../.github/workflows/captura.yml), [data/bronce](../../data/bronce/) | Serie desde 2021 (más de 60 meses). Evidencia: salida de `python -m pipeline.verificar_bronce` |
 
 ## Análisis Estadístico
