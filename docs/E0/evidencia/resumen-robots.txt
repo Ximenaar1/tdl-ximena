@@ -1,5 +1,5 @@
-Verificacion robots.txt - 2026-11-12T19:52:54+00:00
+Verificacion robots.txt - 2026-11-12T22:06:53+00:00
 
-archive-api.open-meteo.com: HTTP 200; ruta /v1/archive permitida: False
-api.open-meteo.com: HTTP 200; ruta /v1/forecast permitida: False
-power.larc.nasa.gov: HTTP 200; ruta /api/temporal/daily/point permitida: False
+archive-api.open-meteo.com: HTTP error; ruta /v1/archive permitida: sin robots.txt valido (revisar manualmente)
+api.open-meteo.com: HTTP error; ruta /v1/forecast permitida: sin robots.txt valido (revisar manualmente)
+power.larc.nasa.gov: HTTP error; ruta /api/temporal/daily/point permitida: sin robots.txt valido (revisar manualmente)

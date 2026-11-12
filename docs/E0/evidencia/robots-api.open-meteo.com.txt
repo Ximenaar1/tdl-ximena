@@ -1,3 +1,2 @@
-# HTTP 200
-User-agent: *
-Disallow: /
+# HTTP error
+Invalid leading whitespace, reserved character(s), or return character(s) in header value: 'TDL-Observatorio/1.0 (proyecto academico TecNM Colima; contacto: 21460541@colima.tecnm.mx\r\nhttps://github.com/Ximenaar1/tdl-ximena)'
