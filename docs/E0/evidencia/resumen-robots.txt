@@ -1,4 +1,4 @@
-Verificacion robots.txt - 2026-11-13T06:41:14+00:00
+Verificacion robots.txt - 2026-11-13T19:39:15+00:00
 
 archive-api.open-meteo.com: HTTP error; ruta /v1/archive permitida: sin robots.txt valido (revisar manualmente)
 api.open-meteo.com: HTTP error; ruta /v1/forecast permitida: sin robots.txt valido (revisar manualmente)
