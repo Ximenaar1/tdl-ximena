@@ -81,8 +81,15 @@ class ExtractorEtico:
         espera = pausa - (time.time() - self.ultimo.get(dominio, 0))
         if espera > 0:
             time.sleep(espera)
+        estado = None
         for i in range(intentos):
-            r = self.sesion.get(url, timeout=60)
+            try:
+                r = self.sesion.get(url, timeout=60)
+            except requests.RequestException as e:  # tiempo agotado o conexion cortada: se reintenta
+                estado = type(e).__name__
+                time.sleep(pausa * 2 ** i)
+                continue
+            estado = r.status_code
             self.ultimo[dominio] = time.time()
             if r.status_code == 429 or r.status_code >= 500:
                 time.sleep(pausa * 2 ** i)  # espera exponencial ante saturacion
@@ -90,4 +97,4 @@ class ExtractorEtico:
             r.raise_for_status()
             r.nota_robots = nota
             return r
-        raise RuntimeError(f"Sin respuesta valida de {url} tras {intentos} intentos")
+        raise RuntimeError(f"Sin respuesta valida tras {intentos} intentos (ultimo estado: {estado}): {url}")

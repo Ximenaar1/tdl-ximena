@@ -68,3 +68,12 @@ def test_verificar_bronce_detecta_menos_de_36_meses(tmp_path):
     (carpeta / "a.json").write_text(json.dumps(
         {"meta": {"municipio": "colima"}, "respuesta": {"daily": {"time": ["2024-01-01", "2024-02-01"]}}}))
     assert verificar_bronce.main(raiz=tmp_path) == 1
+
+
+def test_historico_no_repite_tramos_ya_capturados(tmp_path):
+    hoy = date(2026, 11, 9)
+    primera = ExtractorFalso(falla_en="ixtlahuacan_no_existe")
+    captura.ejecutar("historico", hoy=hoy, ext=primera, raiz=tmp_path)
+    segunda = ExtractorFalso()
+    assert captura.ejecutar("historico", hoy=hoy, ext=segunda, raiz=tmp_path) == 0
+    assert segunda.llamadas == []

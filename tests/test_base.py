@@ -63,3 +63,17 @@ def test_contacto_con_salto_de_linea_se_limpia():
     assert limpiar_contacto(" correo@colima.tecnm.mx;\n https://github.com/x/y \n") == \
         "correo@colima.tecnm.mx; https://github.com/x/y"
     assert limpiar_contacto("") == CONTACTO_DEFECTO
+
+
+def test_error_final_indica_el_ultimo_estado(monkeypatch):
+    import extractores.base as base
+    monkeypatch.setattr(base.time, "sleep", lambda s: None)
+
+    class Sesion503(SesionFalsa):
+        def get(self, url, timeout=None):
+            if url.endswith("/robots.txt"):
+                return Resp(404, "")
+            return Resp(503, "")
+
+    with pytest.raises(RuntimeError, match="ultimo estado: 503"):
+        ExtractorEtico(pausa=0, sesion=Sesion503({})).get("https://ejemplo.com/datos")

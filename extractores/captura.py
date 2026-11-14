@@ -46,13 +46,22 @@ def guardar_bronce(raiz, p, respuesta, cuerpo_json, run_id, modo, ahora):
     return ruta
 
 
+def ya_capturado(raiz, p):
+    """En modo historico, un tramo ya guardado en Bronce no se vuelve a pedir (captura idempotente)."""
+    carpeta = Path(raiz) / "data" / "bronce" / p["fuente"]
+    return any(carpeta.glob(f"fecha_captura=*/{p['municipio']}_{p['inicio']}_{p['fin']}_*.json"))
+
+
 def ejecutar(modo, hoy=None, ext=None, raiz=RAIZ):
     """Devuelve el numero de peticiones fallidas."""
     hoy = hoy or date.today()
     ext = ext or ExtractorEtico()
     run_id = os.environ.get("GITHUB_RUN_ID", "local")
-    fallos = 0
+    fallos = omitidas = 0
     for p in peticiones(modo, hoy):
+        if modo == "historico" and ya_capturado(raiz, p):
+            omitidas += 1
+            continue
         t0 = time.time()
         ahora = datetime.now(timezone.utc)
         fila = dict(timestamp_utc=ahora.isoformat(timespec="seconds"), run_id=run_id, modo=modo,
@@ -67,6 +76,8 @@ def ejecutar(modo, hoy=None, ext=None, raiz=RAIZ):
             fila.update(resultado="error", http_status="", bytes=0, mensaje=str(e)[:200].replace("\n", " "))
         fila["segundos"] = round(time.time() - t0, 2)
         _registrar(raiz, fila)
+    if omitidas:
+        print(f"Tramos historicos ya presentes en Bronce (omitidos): {omitidas}")
     return fallos
 
 
