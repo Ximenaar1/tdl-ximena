@@ -56,3 +56,10 @@ def test_robots_con_error_5xx_bloquea_por_precaucion():
     s = SesionFalsa({"ejemplo.com": (503, "")})
     with pytest.raises(PermissionError):
         ExtractorEtico(pausa=0, sesion=s).get("https://ejemplo.com/datos")
+
+
+def test_contacto_con_salto_de_linea_se_limpia():
+    from extractores.base import CONTACTO_DEFECTO, limpiar_contacto
+    assert limpiar_contacto(" correo@colima.tecnm.mx;\n https://github.com/x/y \n") == \
+        "correo@colima.tecnm.mx; https://github.com/x/y"
+    assert limpiar_contacto("") == CONTACTO_DEFECTO

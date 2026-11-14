@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      # Variable del repo (Settings > Secrets and variables > Actions > Variables): correo institucional y repo
-      TDL_CONTACTO: ${{ vars.TDL_CONTACTO || format('{0}/{1}', github.server_url, github.repository) }}
+      # Contacto del User-Agent: correo institucional y repositorio (condicion del docente, 12-nov-2026)
+      TDL_CONTACTO: "21460541@colima.tecnm.mx; https://github.com/Ximenaar1/tdl-ximena"
       MODO: ${{ github.event.inputs.modo || 'incremental' }}
     steps:
       - uses: actions/checkout@v4

@@ -16,7 +16,15 @@ from urllib.parse import urlparse
 import requests
 
 # Contacto del User-Agent: variable del repositorio TDL_CONTACTO (correo institucional + repo).
-CONTACTO = os.environ.get("TDL_CONTACTO", "https://github.com/Ximenaar1/tdl-ximena")
+CONTACTO_DEFECTO = "https://github.com/Ximenaar1/tdl-ximena"
+
+
+def limpiar_contacto(valor):
+    """Quita saltos de linea y espacios sobrantes: una cabecera HTTP no los admite (defecto 2)."""
+    return " ".join((valor or "").split()) or CONTACTO_DEFECTO
+
+
+CONTACTO = limpiar_contacto(os.environ.get("TDL_CONTACTO"))
 UA = f"TDL-Observatorio/1.0 (proyecto academico TecNM Colima; contacto: {CONTACTO})"
 
 # Dominio -> pagina de terminos de uso de la API documentada.
