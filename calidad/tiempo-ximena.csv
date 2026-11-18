@@ -1,1 +1,2 @@
 fecha,inicio,fin,interrupcion_min,fase,actividad
+2026-11-13,14:45,15:30,0,construccion,Correccion de defectos 1 y 2 del extractor (bloqueo por robots.txt y error de cabecera del User-Agent)
