@@ -1,4 +1,4 @@
-Verificacion robots.txt - 2026-11-19T20:31:38+00:00
+Verificacion robots.txt - 2026-11-20T07:10:58+00:00
 
 archive-api.open-meteo.com: HTTP 200; ruta /v1/archive permitida: False -> API REST documentada; se usa con autorizacion del docente (2026-11-12). Terminos: https://open-meteo.com/en/terms
 api.open-meteo.com: HTTP 200; ruta /v1/forecast permitida: False -> API REST documentada; se usa con autorizacion del docente (2026-11-12). Terminos: https://open-meteo.com/en/terms
