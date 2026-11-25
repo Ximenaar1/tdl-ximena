@@ -38,12 +38,15 @@ jobs:
       - name: Verificar serie historica (36 meses)
         if: env.MODO == 'historico'
         run: python -m pipeline.verificar_bronce
+      - name: Pipeline Bronce -> Plata -> Oro (puerta de calidad y cuarentena)
+        if: always()
+        run: python -m pipeline.ejecutar
       - name: Guardar resultados en el repositorio
         if: always()
         run: |
           git config user.name "tdl-captura-bot"
           git config user.email "tdl-captura-bot@users.noreply.github.com"
-          git add data calidad docs/E0/evidencia
+          git add data calidad docs/E0/evidencia docs/E1
           git diff --cached --quiet || git commit -m "captura (${MODO}): ${GITHUB_RUN_ID}"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"

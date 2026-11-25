@@ -10,4 +10,9 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: python -m pytest -q
+      - name: Linter (ruff)
+        run: ruff check .
+      - name: Pruebas automaticas (pytest)
+        run: python -m pytest -q
+      - name: Puerta de calidad de datos (pipeline + esquema pandera sobre los datos reales)
+        run: python -m pipeline.ejecutar
