@@ -9,3 +9,4 @@ select = ["E", "F", "I", "W"]
 # Plantillas de reportes en Markdown con tablas largas
 "pipeline/ejecutar.py" = ["E501"]
 "pipeline/plata_a_oro.py" = ["E501"]
+"laboratorio/pronostico.py" = ["E501"]

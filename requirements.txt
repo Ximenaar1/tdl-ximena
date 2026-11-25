@@ -1,5 +1,8 @@
 requests>=2.31
 pandas>=2.0
 pandera>=0.20
+statsmodels>=0.14
+scipy>=1.11
+matplotlib>=3.8
 pytest>=8.0
 ruff>=0.5

@@ -1,0 +1,37 @@
+name: analisis
+
+# Corre el pronostico de E1 (statsmodels) y guarda reporte, figuras y CSV del pronostico en el repo.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "laboratorio/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: captura          # mismo grupo que la captura para no chocar al hacer push
+  cancel-in-progress: false
+
+jobs:
+  pronostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Pronostico de lluvia mensual (4 modelos)
+        run: python -m laboratorio.pronostico
+      - name: Guardar resultados en el repositorio
+        run: |
+          git config user.name "tdl-analisis-bot"
+          git config user.email "tdl-analisis-bot@users.noreply.github.com"
+          git add docs/E1 data/oro/pronostico_lluvia_colima.csv
+          git diff --cached --quiet || git commit -m "analisis: pronostico E1 (${GITHUB_RUN_ID})"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
