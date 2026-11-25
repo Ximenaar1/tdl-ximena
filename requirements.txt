@@ -1,8 +1,12 @@
+# Librerias que producen los resultados numericos: version exacta (la registrada en la corrida
+# del flujo "analisis" del 25-nov-2026, Python 3.11.18), para que un tercero obtenga los mismos numeros.
+numpy==2.4.6
+pandas==3.1.1
+scipy==1.17.1
+statsmodels==0.15.0
+matplotlib==3.11.2
+# Herramientas de captura, validacion y pruebas: rango minimo (no cambian los resultados del pronostico)
 requests>=2.31
-pandas>=2.0
 pandera>=0.20
-statsmodels>=0.14
-scipy>=1.11
-matplotlib>=3.8
 pytest>=8.0
 ruff>=0.5

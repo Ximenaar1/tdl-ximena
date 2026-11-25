@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - "laboratorio/**"
+      - "requirements.txt"
 
 permissions:
   contents: write
