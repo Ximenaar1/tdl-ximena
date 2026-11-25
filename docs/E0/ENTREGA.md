@@ -17,7 +17,7 @@ El observatorio captura clima diario de los 10 municipios de Colima desde dos fu
 
 | Criterio de la rúbrica | Evidencia | Nota del equipo |
 |---|---|---|
-| Pregunta y cliente | [propuesta.md, secciones 2 y 3](propuesta.md) | Entrevista con persona del sector |
+| Pregunta y cliente | [propuesta.md, secciones 2 y 3](propuesta.md) | Entrevista a un proveedor de mobiliario y toldos de Coquimatlán (7 años): por mensaje (17 y 18-nov) y llamada de seguimiento de unos 20 min (24-nov) |
 | Preguntas analíticas (E1, E2, E3) | [propuesta.md, sección 4](propuesta.md) | Factores de E2 ajustables en E1 |
 
 ## Calidad en los Sistemas de Información

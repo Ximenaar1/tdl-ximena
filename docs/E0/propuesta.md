@@ -22,31 +22,34 @@ Organizar un evento al aire libre implica decidir con días de anticipación cu�
 
 **Datos de la entrevista**
 
-- Fecha y duración (mínimo 15 min): 16 de noviembre de 2026. Duración de la llamada: 18 minutos.
-- Medio (presencial, llamada o videollamada): llamada telefónica. Las respuestas se reconfirmaron por escrito en Facebook Messenger y se conservan capturas de pantalla como evidencia.
-- Perfil de la persona (giro, años en el sector; sin nombre ni datos personales): propietario de un negocio de renta de mobiliario, toldos y brincolines inflables para eventos en Coquimatlán, Colima, con cerca de 7 años de operación.
-- Autorizó que se use lo que dijo: sí (respondió por escrito que autorizaba el uso de sus respuestas para el trabajo escolar).
+- **Perfil:** propietario de un negocio de renta de mobiliario, toldos y brincolines inflables para eventos en Coquimatlán, Colima, con cerca de 7 años de operación. No se incluyen nombres ni datos personales.
+- **Medio y fechas:** la entrevista se hizo en dos partes.
+  1. **Por mensaje (Facebook Messenger), del 17 al 18 de noviembre de 2026.** La invitación se envió el 17-nov a las 10:00 y el entrevistado eligió responder por escrito. Las preguntas se respondieron entre el 17-nov (16:33) y el 18-nov (20:41).
+  2. **Llamada telefónica de seguimiento el 24 de noviembre de 2026, a las 18:00, de unos 20 minutos** (incluidos el saludo y la explicación del proyecto). En la llamada confirmó sus respuestas escritas y amplió la pregunta 4.
+- **Autorización:** sí. Autorizó por escrito usar sus respuestas en este trabajo escolar.
+- **Evidencia:** la estudiante conserva las capturas del chat y el registro de la llamada. No se publican en el repositorio para proteger la identidad del negocio.
 
-**Las 5 preguntas y las respuestas**
+**Las 5 preguntas y las respuestas** (frases entre comillas tomadas de sus mensajes, con mínimas correcciones de ortografía)
 
-1. *¿Qué decisiones de su negocio dependen del clima (lluvia, calor, viento) y con cuántos días de anticipación las toma?*
-   Respuesta: Dijo que revisar el clima es "sumamente importante" en su trabajo, sobre todo en los contratos de toldos, porque la mayor parte del tiempo los instalan con **1 día de anticipación**. Si ya tenían un pronóstico definido y después cambia, les afecta tanto en la conformidad con el cliente como, en ocasiones, en lo económico.
-2. *¿Qué le ha costado, en dinero, cancelaciones o material dañado, que el clima no saliera como esperaba? ¿Puede darme un ejemplo reciente?*
-   Respuesta: En lo respondido solo comentó, de forma general, que un cambio de pronóstico afecta la relación con el cliente y a veces lo económico. No dio un caso concreto ni cifras.
-3. *¿De dónde obtiene hoy el pronóstico y qué tanto confía en él? ¿Qué le falta?*
-   Respuesta: Usa el pronóstico que muestra **Google** ("ahí donde nos metemos") y confía "casi 100 %". Señaló que si el pronóstico falla les perjudica en logística y tiempo, por ejemplo porque el personal llega tarde.
-4. *¿En qué meses o zonas del estado le resulta más complicado y por qué?*
-   Respuesta: La persona entrevistada no respondió esta pregunta. Se registra como un vacío de la entrevista; las zonas y meses críticos se estudiarán con los datos del propio observatorio (comparación entre costa, valle y sierra).
-5. *Si existiera un reporte que le dijera qué esperar del clima por zona y por mes, ¿qué incluiría, cada cuánto lo querría y qué le parecería razonable pagar por él?*
-   Respuesta: Le gustaría que el reporte fuera **más preciso** y que incluyera **mapas del municipio donde está lloviendo en tiempo real y con qué intensidad**. Sobre el precio, dijo que si hay un buen trabajo en la aplicación, el costo mínimo razonable sería de **$199 al mes**; aclaró que desconoce el tema tecnológico.
+1. *¿Qué decisiones de su negocio dependen del clima (lluvia, calor o viento) y con cuántos días de anticipación las toma?*
+   "Sumamente importante checar en nuestro trabajo el clima, sobre todo en los contratos con toldos árabes, ya que la mayor parte del tiempo los ponemos con 1 día de anticipación. Si nosotros tenemos un pronóstico definido y después cambia, sí nos afecta, tanto en conformidad con el cliente como en lo económico en ocasiones."
+2. *¿Qué le ha costado que el clima no saliera como esperaba, ya sea en dinero, cancelaciones o material dañado?*
+   "Si nos falla, hasta en logística y tiempo nos resulta perjudicante, por el motivo de que llegan tarde los empleados." No dio un caso concreto con cifras; el impacto lo describe en logística, puntualidad del personal, conformidad del cliente y, en ocasiones, en lo económico.
+3. *¿De dónde obtiene hoy el pronóstico del clima y qué tanto confía en él? ¿Qué información le hace falta?*
+   "Sumamente importante para nosotros el clima que nos da Google; es ahí donde nos metemos y confiamos casi 100 %."
+4. *¿En qué meses del año o en qué zonas de Colima (costa, valle o sierra) le resulta más complicado el clima para su trabajo, y por qué?*
+   Por escrito: "Mayormente en valle y costa, aunque a nosotros nos afecta en valle y sierra de Coquimatlán; muy poco, pero en ocasiones." En la llamada precisó que los meses más complicados son **agosto y octubre**, porque es cuando más llueve.
+5. *Si existiera un reporte que le dijera qué esperar del clima por municipio y por mes, ¿qué le gustaría que incluyera, cada cuánto lo querría y cuánto le parecería justo pagar por él?*
+   "Quizás que sea más preciso. Y si se pudiera, incluir mapeos del municipio donde está lloviendo en tiempo real y con qué intensidad. Costos: yo creo que si hay un buen trabajo en la app, mínimo $199 por mes." Añadió que desconoce el tema tecnológico.
 
 **Qué aprendimos**
 
-- El usuario decide con muy poca anticipación (1 día para instalar toldos), así que además de la climatología mensual del observatorio conviene evaluar qué tan bien acierta el **pronóstico de corto plazo** frente a lo que realmente ocurrió. El extractor ya captura pronóstico a 7 días, por lo que esto se puede medir en las entregas siguientes.
-- Hoy se apoya en una sola fuente (Google) y confía casi totalmente en ella; un observatorio que **compare varias fuentes** y muestre qué tanto difieren aporta algo que no tiene.
-- Pidió **mapas de lluvia en tiempo real**. Eso queda fuera del alcance de este observatorio (datos diarios y pronóstico por municipio y mes), y se registra como una necesidad detectada y posible trabajo futuro, no como compromiso.
-- Hay disposición a pagar una suscripción mensual baja ($199 como referencia), lo que respalda que el problema tiene valor para el usuario.
-- La entrevista fue con una sola persona (por llamada, con respuestas reconfirmadas por escrito); sus respuestas son una opinión de caso, no una muestra representativa. Para fortalecerla faltaría un ejemplo concreto de pérdida y una segunda entrevista.
+- **La decisión crítica se toma con 1 día de anticipación** (instalación de toldos). Por eso, además del pronóstico mensual para planear la temporada, conviene medir qué tan bien acierta el **pronóstico de corto plazo** frente a lo que realmente ocurrió. El extractor ya captura el pronóstico a 7 días, así que esto se puede medir en las entregas siguientes.
+- **Los meses críticos que señala (agosto y octubre) caen en la temporada de lluvias de junio a octubre**, lo que respalda pronosticar la lluvia mensual en E1 y verificar con los datos si esos meses son de verdad los de mayor lluvia o variabilidad.
+- **La zona importa:** identifica el valle y la costa como las zonas más complicadas, con afectaciones ocasionales en la sierra de Coquimatlán. Esto respalda comparar costa, valle y sierra en E3.
+- **Hoy depende de una sola fuente (Google) y confía casi por completo en ella.** Un observatorio que compare varias fuentes y comunique su margen de error aporta algo que no tiene.
+- **Hay disposición a pagar** una suscripción mensual baja ($199 como referencia), lo que respalda el valor del problema para el modelo de negocio de E4. Pidió **mapas de lluvia en tiempo real**, que quedan fuera del alcance de este observatorio (datos diarios y pronóstico por municipio y mes); se registran como necesidad detectada y posible trabajo futuro.
+- **Limitación:** es una sola entrevista. Sus respuestas son una opinión de caso, no una muestra representativa, y falta un ejemplo concreto de pérdida económica.
 
 ## 4. Las tres preguntas analíticas
 
