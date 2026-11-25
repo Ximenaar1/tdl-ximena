@@ -28,7 +28,13 @@ else:
     st.caption(f"Pronóstico de Open-Meteo capturado el {captura[:16].replace('T', ' ')} UTC.")
     tabla = siete.pivot(index="municipio", columns="fecha", values="lluvia_mm").round(1)
     st.write("Lluvia esperada (mm por día). Un día con 1 mm o más se considera día con lluvia.")
-    st.dataframe(tabla.style.background_gradient(cmap="Blues", vmin=0, vmax=30), use_container_width=True)
+    st.dataframe(tabla.style.background_gradient(cmap="Blues", vmin=0, vmax=30).format("{:.1f}"),
+                 use_container_width=True)
+    fuertes = siete[siete["lluvia_mm"] >= 30]
+    if not fuertes.empty:
+        dias = ", ".join(sorted(fuertes["fecha"].unique()))
+        st.warning(f"Lluvia fuerte esperada (30 mm o más en un día) el {dias} en {fuertes['municipio'].nunique()} "
+                   "municipio(s). Para eventos al aire libre en esas fechas conviene confirmar toldos y un plan B.")
 
 # ---------- 2. Pronostico mensual (E1) ----------
 st.header("Pronóstico de lluvia mensual · municipio de Colima")

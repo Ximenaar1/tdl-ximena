@@ -8,7 +8,7 @@ Que los datos viajaran solos de Bronce a Oro pasando por una puerta de calidad c
 ## 2. Qué hicimos (cronología; responsable en todo: Ximena)
 | Fecha | Actividad | Evidencia | Horas |
 |---|---|---|---|
-| 11 al 14-nov | Primeras corridas de la captura; fallan por `robots.txt` y por la cabecera User-Agent; autorización del Mtro. Román (12-nov) y corrección; captura estable desde el 14-nov 05:24 UTC | commits `564154e`, `cc00782`, `5d9a143` · defectos 1 a 3 | 13-nov: 0.75 h (14:45–15:30). Resto: [COMPLETAR] |
+| 11 al 14-nov | Primeras corridas de la captura; fallan por `robots.txt` y por la cabecera User-Agent; autorización del Mtro. Román (12-nov) y corrección; captura estable desde el 14-nov 05:24 UTC | commits `564154e`, `cc00782`, `5d9a143` · defectos 1 a 3 | 3.2 h: 11-nov 15:14–16:40 y 20:46–20:57; 12-nov 15:44–16:12 y 17:33–17:36; 13-nov 14:45–15:30 y 23:04–23:25 |
 | 24-nov, 15:26–20:50 | Entrevista final (E0); pipeline Bronce → Plata → Oro, puerta de calidad y cuarentena; pronóstico con 4 modelos y 2 escalas | commits `1da76bc`, `cebfe91`, `6db1a6b`, `b04b6c0` | 4.8 h (5.4 h menos 37 min de interrupción estimada) |
 | 24-nov, 21:12–23:10 | Reproducibilidad del pronóstico; fiabilidad (MTBF, MTTR); seguridad; requerimientos; plan SQA; corrección de la captura incremental; tablero, notebook, relatoría y ficha | commits `64512d8` a este commit | 1.35 h (2 h menos 37 min de interrupción estimada) |
 
