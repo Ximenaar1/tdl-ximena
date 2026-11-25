@@ -42,7 +42,7 @@ Este plan describe cómo se asegura que el observatorio entregue datos y pronós
 | Pruebas automáticas | 100 % en verde | flujo `ci` | 30 pruebas |
 | Cobertura de pruebas | ≥ 60 % (Sello TDL) | `pytest --cov` en `ci` | [COMPLETAR] |
 | Secretos expuestos / vulnerabilidades | 0 / 0 | flujo `seguridad` | [COMPLETAR] |
-| Defectos registrados (PSP) | — (se analizan en E3) | `calidad/defectos-ximena.csv` | 8 defectos |
+| Defectos registrados (PSP) | — (se analizan en E3) | `calidad/defectos-ximena.csv` | 9 defectos |
 | Error del pronóstico (MAE en prueba) | El menor entre los candidatos | `docs/E1/pronostico.md` | 44.1 mm (SARIMA) |
 
 ## 4. Revisiones y auditorías
@@ -80,7 +80,7 @@ Además de las pruebas unitarias, la puerta de datos se ejecuta sobre los **dato
 | AC-02 | Cabecera User-Agent inválida (defecto 2) | Limpieza del valor de contacto | Defecto 2 · `test_contacto_con_salto_de_linea_se_limpia` | Cerrada |
 | AC-03 | GitHub ejecutó 23 de 43 horarios del cron desde el 14-nov; la disponibilidad sobre corridas programadas es 53.5 % | Propuesta: ajustar el cron a la frecuencia que GitHub realmente cumple (cada 12 h) y redefinir el objetivo 1 sobre esa frecuencia; medir de nuevo en E3 | `docs/E1/fiabilidad.md` | **Abierta** |
 | AC-04 | Holt-Winters daba resultados distintos con datos idénticos (defecto 8) | Inicialización heurística, un solo hilo y versiones exactas | Commits `64512d8` y `7b417cf` · corridas `analisis` #3 y #4 idénticas | Cerrada |
-| AC-05 | La captura incremental solo pide el pronóstico de Open-Meteo y los últimos 10 días de NASA; la serie histórica de Open-Meteo (la principal) no se ha actualizado desde la carga del 14-nov, así que Oro no incorpora meses nuevos | El modo incremental ahora pide también los últimos 14 días consolidados del histórico de Open-Meteo (de 20 a 30 peticiones por corrida); al repetir la ventana, una corrida omitida no deja huecos | `extractores/fuentes.py` · `test_incremental_actualiza_la_serie_principal` · [COMPLETAR: commit y primera corrida con 30 peticiones] | En verificación |
+| AC-05 | La captura incremental solo pide el pronóstico de Open-Meteo y los últimos 10 días de NASA; la serie histórica de Open-Meteo (la principal) no se ha actualizado desde la carga del 14-nov, así que Oro no incorpora meses nuevos | El modo incremental ahora pide también los últimos 14 días consolidados del histórico de Open-Meteo (de 20 a 30 peticiones por corrida); al repetir la ventana, una corrida omitida no deja huecos | `extractores/fuentes.py` · `test_incremental_actualiza_la_serie_principal` · commit `07b4fe9` · corrida de captura `45548559868` (30/30 peticiones ok; Plata actualizada hasta el 2026-11-18) · defecto 9 | Cerrada |
 
 ## 7. Herramientas
 | Herramienta | Uso |
