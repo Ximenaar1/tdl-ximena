@@ -8,6 +8,7 @@ on:
   schedule:
     - cron: "41 15 * * 1"     # lunes 15:41 UTC
   push:
+    branches: [main]   # no en etiquetas: estos flujos guardan resultados en la rama
     paths:
       - "requirements.txt"
       - ".github/workflows/seguridad.yml"

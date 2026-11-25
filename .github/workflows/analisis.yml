@@ -4,6 +4,7 @@ name: analisis
 on:
   workflow_dispatch:
   push:
+    branches: [main]   # no en etiquetas: estos flujos guardan resultados en la rama
     paths:
       - "laboratorio/**"
       - "requirements.txt"
