@@ -1,0 +1,48 @@
+name: seguridad
+
+# Revision de seguridad: secretos en todo el historial (gitleaks), vulnerabilidades en dependencias (pip-audit)
+# y respaldo de Bronce con prueba de restauracion. Corre cada semana, al cambiar dependencias o a mano.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 15 * * 1"     # lunes 15:41 UTC
+  push:
+    paths:
+      - "requirements.txt"
+      - ".github/workflows/seguridad.yml"
+      - "pipeline/respaldo_bronce.py"
+
+permissions:
+  contents: read   # minimo permiso: no escribe en el repositorio
+
+jobs:
+  seguridad:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt pip-audit
+      - name: Secretos en todo el historial (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Vulnerabilidades conocidas en dependencias (pip-audit)
+        run: |
+          echo "## pip-audit" >> "$GITHUB_STEP_SUMMARY"
+          pip-audit -r requirements.txt -f markdown | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Respaldo de Bronce y prueba de restauracion
+        if: always()
+        run: python -m pipeline.respaldo_bronce respaldo | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Guardar el respaldo fuera del repositorio (artefacto, 90 dias)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: respaldo-bronce
+          path: respaldo/*.zip
+          retention-days: 90

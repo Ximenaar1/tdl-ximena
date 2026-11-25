@@ -1,10 +1,17 @@
 name: ci
 on: [push, pull_request]
+
+# Token del flujo con el minimo permiso: solo lectura del repositorio
+permissions:
+  contents: read
+
 jobs:
   pruebas:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # historial completo para buscar secretos
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -12,7 +19,11 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Linter (ruff)
         run: ruff check .
-      - name: Pruebas automaticas (pytest)
-        run: python -m pytest -q
+      - name: Pruebas automaticas con cobertura (pytest + pytest-cov)
+        run: python -m pytest -q --cov=extractores --cov=pipeline --cov=laboratorio --cov=calidad --cov-report=term-missing
       - name: Puerta de calidad de datos (pipeline + esquema pandera sobre los datos reales)
         run: python -m pipeline.ejecutar
+      - name: Busqueda de secretos en el historial (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
