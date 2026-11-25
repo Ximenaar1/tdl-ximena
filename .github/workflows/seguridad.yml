@@ -43,7 +43,10 @@ jobs:
       - name: Vulnerabilidades conocidas en dependencias (pip-audit)
         id: pipaudit
         continue-on-error: true
-        run: pip-audit -r requirements.txt -f markdown > docs/E1/seguridad/pip-audit.md
+        run: |
+          pip-audit -r requirements.txt -f markdown > docs/E1/seguridad/pip-audit.md
+          # Sin hallazgos pip-audit no escribe tabla: se deja constancia explicita
+          [ -s docs/E1/seguridad/pip-audit.md ] || echo "No se encontraron vulnerabilidades conocidas en las dependencias de requirements.txt ($(date -u +%Y-%m-%d))." > docs/E1/seguridad/pip-audit.md
       - name: Cobertura de pruebas (pytest-cov)
         id: cobertura
         continue-on-error: true

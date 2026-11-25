@@ -39,9 +39,9 @@ Este plan describe cómo se asegura que el observatorio entregue datos y pronós
 | MTBF / MTTR | — (se reportan) | mismo script | Desde el 14-nov: MTBF 257 h, MTTR 0.18 h |
 | Completitud histórica | ≥ 36 meses por municipio | `python -m pipeline.verificar_bronce` | Cumple (desde 2021-01) |
 | Registros en cuarentena | Cada uno con motivo | `data/cuarentena/cuarentena.csv` | 0 registros (7 reglas) |
-| Pruebas automáticas | 100 % en verde | flujo `ci` | 30 pruebas |
-| Cobertura de pruebas | ≥ 60 % (Sello TDL) | `pytest --cov` en `ci` | [COMPLETAR] |
-| Secretos expuestos / vulnerabilidades | 0 / 0 | flujo `seguridad` | [COMPLETAR] |
+| Pruebas automáticas | 100 % en verde | flujo `ci` | 30 pruebas, todas en verde |
+| Cobertura de pruebas | ≥ 60 % (Sello TDL) | `pytest --cov` en `ci` y `seguridad` → `docs/E1/seguridad/cobertura.txt` | 65 % (punto débil: `laboratorio/pronostico.py` 23 %) |
+| Secretos expuestos / vulnerabilidades | 0 / 0 | flujo `seguridad` → `docs/E1/seguridad/README.md` | 0 / 0 |
 | Defectos registrados (PSP) | — (se analizan en E3) | `calidad/defectos-ximena.csv` | 9 defectos |
 | Error del pronóstico (MAE en prueba) | El menor entre los candidatos | `docs/E1/pronostico.md` | 44.1 mm (SARIMA) |
 
