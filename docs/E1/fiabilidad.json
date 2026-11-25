@@ -1,0 +1,361 @@
+{
+  "completo": {
+    "desde": "2026-11-11 22:34:35+00:00",
+    "hasta": "2026-11-24 22:24:54+00:00",
+    "corridas": 31,
+    "corridas_exitosas": 24,
+    "tasa_exito_corridas": 77.4,
+    "peticiones": 901,
+    "peticiones_ok": 580,
+    "tasa_exito_peticiones": 64.4,
+    "horas_observadas": 311.8,
+    "horas_funcionando": 257.0,
+    "horas_caido": 54.84,
+    "fallas": 1,
+    "falla_abierta": false,
+    "MTBF_h": 257.0,
+    "MTTR_h": 54.84,
+    "disponibilidad": 82.41,
+    "episodios": [
+      {
+        "inicio": "2026-11-11 22:34:35+00:00",
+        "reparada": "2026-11-14 05:24:56+00:00",
+        "horas": 54.84
+      }
+    ]
+  },
+  "desde_correccion": {
+    "desde": "2026-11-14 05:13:52+00:00",
+    "hasta": "2026-11-24 22:24:54+00:00",
+    "corridas": 25,
+    "corridas_exitosas": 24,
+    "tasa_exito_corridas": 96.0,
+    "peticiones": 581,
+    "peticiones_ok": 580,
+    "tasa_exito_peticiones": 99.8,
+    "horas_observadas": 257.2,
+    "horas_funcionando": 257.0,
+    "horas_caido": 0.18,
+    "fallas": 1,
+    "falla_abierta": false,
+    "MTBF_h": 257.0,
+    "MTTR_h": 0.18,
+    "disponibilidad": 99.93,
+    "episodios": [
+      {
+        "inicio": "2026-11-14 05:13:52+00:00",
+        "reparada": "2026-11-14 05:24:56+00:00",
+        "horas": 0.18
+      }
+    ]
+  },
+  "ultimos_14_dias": {
+    "desde": "2026-11-11 22:34:35+00:00",
+    "hasta": "2026-11-24 22:24:54+00:00",
+    "corridas": 31,
+    "corridas_exitosas": 24,
+    "tasa_exito_corridas": 77.4,
+    "peticiones": 901,
+    "peticiones_ok": 580,
+    "tasa_exito_peticiones": 64.4,
+    "horas_observadas": 311.8,
+    "horas_funcionando": 257.0,
+    "horas_caido": 54.84,
+    "fallas": 1,
+    "falla_abierta": false,
+    "MTBF_h": 257.0,
+    "MTTR_h": 54.84,
+    "disponibilidad": 82.41,
+    "episodios": [
+      {
+        "inicio": "2026-11-11 22:34:35+00:00",
+        "reparada": "2026-11-14 05:24:56+00:00",
+        "horas": 54.84
+      }
+    ]
+  },
+  "antes_de_E1": {
+    "desde": "2026-11-11 22:34:35+00:00",
+    "hasta": "2026-11-13 19:39:15+00:00",
+    "corridas": 6,
+    "corridas_exitosas": 0,
+    "tasa_exito_corridas": 0.0,
+    "peticiones": 320,
+    "peticiones_ok": 0,
+    "tasa_exito_peticiones": 0.0,
+    "horas_observadas": 45.1,
+    "horas_funcionando": 0.0,
+    "horas_caido": 45.08,
+    "fallas": 1,
+    "falla_abierta": true,
+    "MTBF_h": 0.0,
+    "MTTR_h": 45.08,
+    "disponibilidad": 0.0,
+    "episodios": [
+      {
+        "inicio": "2026-11-11 22:34:35+00:00",
+        "reparada": "None",
+        "horas": 45.08
+      }
+    ]
+  },
+  "cron": {
+    "incrementales_ejecutadas": 27,
+    "horarios_del_cron": 50,
+    "desde_correccion": {
+      "horarios_del_cron": 43,
+      "incrementales_exitosas": 23,
+      "porcentaje": 53.5
+    }
+  },
+  "corridas": [
+    {
+      "run_id": 43112866220,
+      "inicio": "2026-11-11 22:34:35+00:00",
+      "modo": "historico",
+      "peticiones": 120,
+      "ok": 0,
+      "exitosa": false
+    },
+    {
+      "run_id": 43172877733,
+      "inicio": "2026-11-12 07:07:13+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 0,
+      "exitosa": false
+    },
+    {
+      "run_id": 43294614663,
+      "inicio": "2026-11-12 19:52:56+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 0,
+      "exitosa": false
+    },
+    {
+      "run_id": 43316778947,
+      "inicio": "2026-11-12 22:06:53+00:00",
+      "modo": "historico",
+      "peticiones": 120,
+      "ok": 0,
+      "exitosa": false
+    },
+    {
+      "run_id": 43380400608,
+      "inicio": "2026-11-13 06:41:14+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 0,
+      "exitosa": false
+    },
+    {
+      "run_id": 43494183411,
+      "inicio": "2026-11-13 19:39:15+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 0,
+      "exitosa": false
+    },
+    {
+      "run_id": 43560438441,
+      "inicio": "2026-11-14 05:13:52+00:00",
+      "modo": "historico",
+      "peticiones": 120,
+      "ok": 119,
+      "exitosa": false
+    },
+    {
+      "run_id": 43561350752,
+      "inicio": "2026-11-14 05:24:56+00:00",
+      "modo": "historico",
+      "peticiones": 1,
+      "ok": 1,
+      "exitosa": true
+    },
+    {
+      "run_id": 43565649324,
+      "inicio": "2026-11-14 06:18:13+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 43623983593,
+      "inicio": "2026-11-14 17:58:49+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 43647651169,
+      "inicio": "2026-11-14 22:21:40+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 43685328267,
+      "inicio": "2026-11-15 06:25:14+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 43748885801,
+      "inicio": "2026-11-15 18:49:48+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 43816468823,
+      "inicio": "2026-11-16 06:24:15+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 43965504392,
+      "inicio": "2026-11-16 21:59:21+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44041957698,
+      "inicio": "2026-11-17 07:51:56+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44173827165,
+      "inicio": "2026-11-17 20:52:42+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44258521698,
+      "inicio": "2026-11-18 07:23:56+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44391397972,
+      "inicio": "2026-11-18 20:28:48+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44478892821,
+      "inicio": "2026-11-19 07:21:35+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44609530624,
+      "inicio": "2026-11-19 20:31:39+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44693025812,
+      "inicio": "2026-11-20 07:10:59+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44809175910,
+      "inicio": "2026-11-20 20:12:28+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44878313248,
+      "inicio": "2026-11-21 07:02:23+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44939645016,
+      "inicio": "2026-11-21 19:12:17+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 44994988912,
+      "inicio": "2026-11-22 06:43:29+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 45061541111,
+      "inicio": "2026-11-22 19:34:57+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 45131810205,
+      "inicio": "2026-11-23 07:32:28+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 45292234409,
+      "inicio": "2026-11-23 23:50:46+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 45369153444,
+      "inicio": "2026-11-24 09:51:48+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 45500528887,
+      "inicio": "2026-11-24 22:24:40+00:00",
+      "modo": "incremental",
+      "peticiones": 20,
+      "ok": 20,
+      "exitosa": true
+    }
+  ]
+}

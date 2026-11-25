@@ -41,6 +41,9 @@ jobs:
       - name: Pipeline Bronce -> Plata -> Oro (puerta de calidad y cuarentena)
         if: always()
         run: python -m pipeline.ejecutar
+      - name: Fiabilidad y disponibilidad de la captura (MTBF, MTTR, A)
+        if: always()
+        run: python -m calidad.fiabilidad
       - name: Guardar resultados en el repositorio
         if: always()
         run: |
