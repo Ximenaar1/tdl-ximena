@@ -23,4 +23,4 @@ pipeline/respaldo_bronce.py          43      7    84%   61-66, 70
 pipeline/verificar_bronce.py         25      3    88%   22-23, 33
 ---------------------------------------------------------------
 TOTAL                               768    269    65%
-33 passed in 1.65s
+33 passed in 1.63s
