@@ -18,7 +18,7 @@ La columna "Estado" se llenó el 24-nov-2026 con la evidencia del repositorio.
 | RF-08 | Los valores atípicos (Z-score robusto > 3.5 por municipio y mes) se marcan en columnas `atipico_*` y se conservan. | Decisión del 24-nov (E1) | P: `test_atipico_se_marca_pero_no_se_borra` | Cumple |
 | RF-09 | Cada fila de Plata conserva su linaje: archivo de Bronce de origen (`archivo_bronce`) y hora de captura (`captura_utc`). | Rúbrica E2 Ing. de Datos (linaje) | I: columnas de `data/plata/clima_diario.csv.gz` y `data/oro/diccionario_datos.md` | Cumple |
 | RF-10 | El pronóstico de lluvia mensual del municipio de Colima se elige por el menor MAE en los últimos 12 meses (prueba), entre 4 modelos en 2 escalas, y se publica a 12 meses con intervalo de predicción del 95 %. | Rúbrica E1 Estadística · decisión del 24-nov | D: flujo `analisis` → `docs/E1/pronostico.md`, `data/oro/pronostico_lluvia_colima.csv` | Cumple |
-| RF-11 | El tablero publica el pronóstico con su intervalo y una frase para el cliente. | Rúbrica E1 Estadística | D: URL pública del tablero | **Pendiente** (tablero en construcción) |
+| RF-11 | El tablero publica el pronóstico con su intervalo y una frase para el cliente. | Rúbrica E1 Estadística | P: `test_frases_cliente_usan_el_pico_y_las_temporadas`, `test_datos_reales_del_tablero_se_leen` · D: [COMPLETAR: URL pública del tablero] | Cumple en código; pendiente la publicación |
 
 ## Requerimientos no funcionales (RNF)
 | ID | Requerimiento | Origen | Verificación | Estado |

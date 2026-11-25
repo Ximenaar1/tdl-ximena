@@ -1,2 +1,4 @@
 fecha,inicio,fin,interrupcion_min,fase,actividad
 2026-11-13,14:45,15:30,0,construccion,Correccion de defectos 1 y 2 del extractor (bloqueo por robots.txt y error de cabecera del User-Agent)
+2026-11-24,15:26,20:50,37,construccion,"E0: entrevista final y ficha de entrega; E1: pipeline Bronce-Plata-Oro, puerta de calidad y pronostico. Interrupcion estimada por la estudiante"
+2026-11-24,21:12,23:10,37,construccion,"E1: reproducibilidad del pronostico (defecto 8), fiabilidad, seguridad, requerimientos, plan SQA, correccion AC-05 (defecto 9), tablero, notebook, relatoria y ficha de entrega. Interrupcion estimada por la estudiante"

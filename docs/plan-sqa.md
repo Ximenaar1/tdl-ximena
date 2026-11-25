@@ -39,7 +39,7 @@ Este plan describe cómo se asegura que el observatorio entregue datos y pronós
 | MTBF / MTTR | — (se reportan) | mismo script | Desde el 14-nov: MTBF 257 h, MTTR 0.18 h |
 | Completitud histórica | ≥ 36 meses por municipio | `python -m pipeline.verificar_bronce` | Cumple (desde 2021-01) |
 | Registros en cuarentena | Cada uno con motivo | `data/cuarentena/cuarentena.csv` | 0 registros (7 reglas) |
-| Pruebas automáticas | 100 % en verde | flujo `ci` | 30 pruebas, todas en verde |
+| Pruebas automáticas | 100 % en verde | flujo `ci` | 33 pruebas, todas en verde |
 | Cobertura de pruebas | ≥ 60 % (Sello TDL) | `pytest --cov` en `ci` y `seguridad` → `docs/E1/seguridad/cobertura.txt` | 65 % (punto débil: `laboratorio/pronostico.py` 23 %) |
 | Secretos expuestos / vulnerabilidades | 0 / 0 | flujo `seguridad` → `docs/E1/seguridad/README.md` | 0 / 0 |
 | Defectos registrados (PSP) | — (se analizan en E3) | `calidad/defectos-ximena.csv` | 9 defectos |
@@ -64,6 +64,7 @@ Las pruebas son automáticas (pytest) y corren en cada *push*. No usan internet:
 | Captura | Rangos de fechas, ≥ 36 meses, metadatos, bitácora, fallas que no detienen la captura, histórico idempotente, actualización incremental de la serie principal | `tests/test_captura.py` |
 | Pipeline | Faltantes y unidades de NASA, duplicados, cuarentena con motivo, atípicos marcados, capas completas, esquema pandera | `tests/test_pipeline.py` |
 | Pronóstico | Serie mensual y división entrenamiento/prueba, métricas de error, huella de reproducibilidad | `tests/test_pronostico.py` |
+| Tablero | Frases para el cliente, pronóstico de 7 días e indicadores de calidad | `tests/test_tablero.py` |
 | Fiabilidad | Episodios de falla, MTBF/MTTR, falla abierta | `tests/test_fiabilidad.py` |
 | Respaldo | Restauración idéntica y detección de archivos alterados | `tests/test_respaldo.py` |
 
@@ -92,7 +93,7 @@ Además de las pruebas unitarias, la puerta de datos se ejecuta sobre los **dato
 | gitleaks | Búsqueda de secretos en el historial |
 | pip-audit | Vulnerabilidades conocidas en dependencias |
 | statsmodels, SciPy | Modelos de pronóstico y pruebas de supuestos (puerta 3) |
-| Streamlit | Tablero (en construcción) |
+| Streamlit (Community Cloud) | Tablero público (`tablero/app.py`) |
 
 ## 8. Control de versiones y de configuración
 - Rama única `main`. Cada entrega se congela con una etiqueta (`e0` … `e4`).
