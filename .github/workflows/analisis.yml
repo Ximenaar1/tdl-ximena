@@ -18,6 +18,11 @@ jobs:
   pronostico:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Un solo hilo de calculo numerico: mismo orden de operaciones en cada corrida (reproducibilidad)
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

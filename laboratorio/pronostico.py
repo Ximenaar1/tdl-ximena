@@ -61,11 +61,43 @@ def correlacion_cruzada(y, x, max_rezago=6):
 # ---------- Modelos (requieren statsmodels) ----------
 
 def ajustar_ets(y, tendencia, estacional):
+    """Ajuste ETS reproducible.
+
+    Con la inicializacion por defecto ("estimated") el optimizador busca a la vez los parametros de
+    suavizamiento y los 14 estados iniciales; con los mismos datos dio AIC 697.1 en una corrida y 700.1 en
+    otra (25-nov-2026). Con "heuristic" los estados iniciales se calculan con una regla fija a partir de los
+    primeros anios de la serie y el optimizador solo busca alfa, beta, gamma y phi: el punto de partida es
+    siempre el mismo y el resultado tambien.
+    """
     from statsmodels.tsa.exponential_smoothing.ets import ETSModel
 
     modelo = ETSModel(y, error="add", trend=tendencia, damped_trend=tendencia is not None and estacional is not None,
-                      seasonal=estacional, seasonal_periods=12 if estacional else None)
-    return modelo.fit(disp=False)
+                      seasonal=estacional, seasonal_periods=12 if estacional else None,
+                      initialization_method="heuristic")
+    return modelo.fit(disp=False, maxiter=2000)
+
+
+def convergio(res):
+    """True si el optimizador reporta convergencia (None si la version de statsmodels no lo informa)."""
+    retvals = getattr(res, "mle_retvals", None) or {}
+    valor = retvals.get("converged")
+    return None if valor is None else bool(valor)
+
+
+def huella_reproducibilidad(ruta=ORO):
+    """Huella de los datos (SHA-256 del archivo de Oro) y versiones usadas, para comparar corridas."""
+    import hashlib
+    import platform
+    from importlib.metadata import PackageNotFoundError, version
+
+    versiones = {}
+    for paquete in ["statsmodels", "pandas", "numpy", "scipy", "matplotlib"]:
+        try:
+            versiones[paquete] = version(paquete)
+        except PackageNotFoundError:
+            versiones[paquete] = None
+    return {"sha256_datos": hashlib.sha256(Path(ruta).read_bytes()).hexdigest(),
+            "python": platform.python_version(), "versiones": versiones}
 
 
 def pronostico_ets(res, n_obs, h):
@@ -148,7 +180,8 @@ def main():
     y = df["lluvia_total_mm"].astype(float)
     entrenamiento, prueba = dividir(y)
     r = {"inicio": str(y.index[0].date()), "fin": str(y.index[-1].date()), "n": len(y),
-         "n_entrenamiento": len(entrenamiento), "n_prueba": len(prueba)}
+         "n_entrenamiento": len(entrenamiento), "n_prueba": len(prueba),
+         "reproducibilidad": huella_reproducibilidad()}
 
     # 1. Caracterizacion y descomposicion (aditiva: hay meses en 0, la multiplicativa no aplica)
     desc = seasonal_decompose(y, model="additive", period=12)
@@ -194,7 +227,7 @@ def main():
     plt.close(fig)
 
     # 3. Cuatro modelos x dos escalas (mm directos y logaritmica), evaluados en prueba en mm
-    resultados, pronosticos, ordenes, origen = {}, {}, {}, {}
+    resultados, pronosticos, ordenes, origen, convergencia = {}, {}, {}, {}, {}
     r["sarima_top5"] = {}
     for escala, (ida, _) in ESCALAS.items():
         candidatos = elegir_sarima(ida(entrenamiento), d)
@@ -208,6 +241,8 @@ def main():
             pronosticos[nombre] = pred
             origen[nombre] = (modelo, escala)
             resultados[nombre] = {**metricas(prueba, pred["mean"]), "AIC": round(float(res.aic), 1)}
+            convergencia[nombre] = convergio(res)
+    r["reproducibilidad"]["convergencia"] = convergencia
     tabla = pd.DataFrame(resultados).T.sort_values("MAE")
     ganador = tabla.index[0]
     r["tabla"] = tabla.round(1).to_dict(orient="index")
@@ -244,7 +279,7 @@ def main():
     eje.plot(futuro.index, futuro["mean"], color="tab:blue", marker="o", label=f"pronostico ({ganador})")
     eje.fill_between(futuro.index, futuro["inferior"], futuro["superior"], alpha=0.25, label="intervalo 95 %")
     eje.set_ylabel("lluvia mensual (mm)")
-    eje.set_title("Colima: pronostico de lluvia mensual a 6 meses")
+    eje.set_title(f"Colima: pronostico de lluvia mensual a {HORIZONTE} meses")
     eje.legend()
     fig.tight_layout()
     fig.savefig(FIGURAS / "pronostico.png", dpi=120)
@@ -344,6 +379,20 @@ Los valores negativos se recortan a 0 porque no existe lluvia negativa. Escala d
 - Shapiro-Wilk: estadistico {r['shapiro']['estadistico']}, p = {r['shapiro']['p']} -> residuos no normales: {sig(r['shapiro']['p'])}.
 
 ![residuos](figuras/residuos.png)
+
+## 6. Reproducibilidad
+Diagnostico (25-nov-2026): dos corridas con **el mismo archivo de datos** (misma huella SHA-256) y el mismo codigo de
+ajuste dieron para Holt-Winters [mm] AIC 697.1 / MAE 43.7 y AIC 700.1 / MAE 47.3. Como el AIC cambio con datos
+identicos, el optimizador termino en puntos distintos: con la inicializacion "estimated" buscaba 14 estados iniciales
+ademas de los parametros de suavizamiento, un problema mal condicionado.
+Correccion: (1) los modelos ETS usan `initialization_method="heuristic"` (estados iniciales con una regla fija) y
+`maxiter=2000`; (2) el flujo `analisis` corre con un solo hilo de calculo numerico (`OMP_NUM_THREADS=1`) para que el
+orden de las sumas no varie; (3) cada corrida guarda la huella de los datos y las versiones usadas, para fijarlas en
+`requirements.txt` y poder distinguir si un cambio de resultado viene de los datos o del software.
+
+- Huella de los datos (SHA-256 de `clima_municipio_mes.csv`): `{r['reproducibilidad']['sha256_datos']}`
+- Python {r['reproducibilidad']['python']}; versiones: {r['reproducibilidad']['versiones']}
+- Convergencia del optimizador por modelo: {r['reproducibilidad']['convergencia']}
 """
     (SALIDA / "pronostico.md").write_text(texto, encoding="utf-8")
 
