@@ -1,7 +1,8 @@
 name: seguridad
 
-# Revision de seguridad: secretos en todo el historial (gitleaks), vulnerabilidades en dependencias (pip-audit)
-# y respaldo de Bronce con prueba de restauracion. Corre cada semana, al cambiar dependencias o a mano.
+# Revision de seguridad y cobertura: secretos en todo el historial (gitleaks), vulnerabilidades en dependencias
+# (pip-audit), cobertura de pruebas (pytest-cov) y respaldo de Bronce con prueba de restauracion.
+# Guarda los resultados en docs/E1/seguridad/ como evidencia permanente (los registros de Actions caducan).
 on:
   workflow_dispatch:
   schedule:
@@ -13,7 +14,11 @@ on:
       - "pipeline/respaldo_bronce.py"
 
 permissions:
-  contents: read   # minimo permiso: no escribe en el repositorio
+  contents: write   # solo para guardar los reportes de docs/E1/seguridad/
+
+concurrency:
+  group: captura          # mismo grupo que captura y analisis para no chocar al hacer push
+  cancel-in-progress: false
 
 jobs:
   seguridad:
@@ -28,17 +33,42 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt pip-audit
+      - run: mkdir -p docs/E1/seguridad
       - name: Secretos en todo el historial (gitleaks)
+        id: gitleaks
+        continue-on-error: true
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Vulnerabilidades conocidas en dependencias (pip-audit)
-        run: |
-          echo "## pip-audit" >> "$GITHUB_STEP_SUMMARY"
-          pip-audit -r requirements.txt -f markdown | tee -a "$GITHUB_STEP_SUMMARY"
+        id: pipaudit
+        continue-on-error: true
+        run: pip-audit -r requirements.txt -f markdown > docs/E1/seguridad/pip-audit.md
+      - name: Cobertura de pruebas (pytest-cov)
+        id: cobertura
+        continue-on-error: true
+        run: >
+          python -m pytest -q --cov=extractores --cov=pipeline --cov=laboratorio --cov=calidad
+          --cov-report=term-missing > docs/E1/seguridad/cobertura.txt
       - name: Respaldo de Bronce y prueba de restauracion
-        if: always()
-        run: python -m pipeline.respaldo_bronce respaldo | tee -a "$GITHUB_STEP_SUMMARY"
+        id: respaldo
+        continue-on-error: true
+        run: python -m pipeline.respaldo_bronce respaldo > docs/E1/seguridad/respaldo.json
+      - name: Resumen de la revision
+        run: |
+          {
+            echo "# Revision de seguridad y cobertura"
+            echo
+            echo "Corrida: ${GITHUB_RUN_ID} · $(date -u +%Y-%m-%dT%H:%M:%SZ) · commit ${GITHUB_SHA::7}"
+            echo
+            echo "| Control | Resultado | Detalle |"
+            echo "|---|---|---|"
+            echo "| Secretos en todo el historial (gitleaks) | ${{ steps.gitleaks.outcome }} | success = 0 secretos (evento ${{ github.event_name }}: push revisa los commits nuevos; manual y semanal, todo el historial) |"
+            echo "| Vulnerabilidades en dependencias (pip-audit) | ${{ steps.pipaudit.outcome }} | [pip-audit.md](pip-audit.md) |"
+            echo "| Pruebas y cobertura (pytest-cov) | ${{ steps.cobertura.outcome }} | $(grep '^TOTAL' docs/E1/seguridad/cobertura.txt || echo 'sin TOTAL') · [cobertura.txt](cobertura.txt) |"
+            echo "| Respaldo de Bronce restaurado identico | ${{ steps.respaldo.outcome }} | [respaldo.json](respaldo.json) |"
+          } > docs/E1/seguridad/README.md
+          cat docs/E1/seguridad/README.md >> "$GITHUB_STEP_SUMMARY"
       - name: Guardar el respaldo fuera del repositorio (artefacto, 90 dias)
         if: always()
         uses: actions/upload-artifact@v4
@@ -46,3 +76,14 @@ jobs:
           name: respaldo-bronce
           path: respaldo/*.zip
           retention-days: 90
+      - name: Guardar los reportes en el repositorio
+        run: |
+          git config user.name "tdl-seguridad-bot"
+          git config user.email "tdl-seguridad-bot@users.noreply.github.com"
+          git add docs/E1/seguridad
+          git diff --cached --quiet || git commit -m "seguridad: reportes (${GITHUB_RUN_ID})"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Fallar si algun control fallo
+        if: steps.gitleaks.outcome != 'success' || steps.pipaudit.outcome != 'success' || steps.cobertura.outcome != 'success' || steps.respaldo.outcome != 'success'
+        run: exit 1

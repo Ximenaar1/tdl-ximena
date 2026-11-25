@@ -53,7 +53,7 @@ Este plan describe cómo se asegura que el observatorio entregue datos y pronós
 | Revisión de supuestos estadísticos | Antes de publicar un hallazgo | Estacionariedad, residuos (Ljung-Box, Levene, Shapiro), supuestos de ANOVA y de normalidad multivariada | `docs/E1/pronostico.md` §5 y siguientes entregas |
 | Issues de los docentes | Después de cada entrega | Hallazgos por materia; ninguno queda abierto sin respuesta antes de la siguiente entrega | Sección "Issues de la entrega anterior" en `docs/E<n>/ENTREGA.md` |
 | Auditoría cruzada | 19 al 23-nov-2026 | Otro equipo audita este observatorio y viceversa; hallazgos por severidad | **No se realizó**: en ese periodo no se hizo auditoría cruzada con ningún equipo |
-| Revisión de seguridad | Semanal y al cambiar dependencias | Secretos en todo el historial, vulnerabilidades, respaldo | Flujo `seguridad` |
+| Revisión de seguridad | Semanal y al cambiar dependencias | Secretos en todo el historial, vulnerabilidades, cobertura, respaldo | Flujo `seguridad` → `docs/E1/seguridad/README.md` |
 
 ## 5. Pruebas
 Las pruebas son automáticas (pytest) y corren en cada *push*. No usan internet: los servidores se simulan, para que el resultado no dependa de que las APIs estén disponibles.
@@ -99,7 +99,7 @@ Además de las pruebas unitarias, la puerta de datos se ejecuta sobre los **dato
 - Los bots de `captura` y `analisis` hacen commits automáticos; por eso, antes de cada cambio manual se ejecuta primero `git pull`.
 - Las librerías que producen resultados numéricos tienen versión exacta en `requirements.txt`. Cada corrida del pronóstico guarda la huella SHA-256 de los datos y las versiones usadas.
 - Bronce (la única capa que no se puede regenerar) se versiona en Git y además se respalda como artefacto de GitHub Actions durante 90 días, con prueba de restauración (`pipeline/respaldo_bronce.py`).
-- Los tokens de los flujos tienen el mínimo permiso: lectura en `ci` y `seguridad`, escritura solo en `captura` y `analisis`, que guardan resultados.
+- Los tokens de los flujos tienen el mínimo permiso: lectura en `ci`; escritura solo en `captura`, `analisis` y `seguridad`, que guardan resultados en el repositorio.
 
 ## 9. Riesgos
 | Riesgo | Probabilidad | Impacto | Mitigación |
