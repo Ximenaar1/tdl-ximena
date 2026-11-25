@@ -1,76 +1,91 @@
 {
   "completo": {
     "desde": "2026-11-11 22:34:35+00:00",
-    "hasta": "2026-11-25 04:42:49+00:00",
-    "corridas": 32,
+    "hasta": "2026-11-25 08:33:44+00:00",
+    "corridas": 33,
     "corridas_exitosas": 25,
-    "tasa_exito_corridas": 78.1,
-    "peticiones": 931,
-    "peticiones_ok": 610,
-    "tasa_exito_peticiones": 65.5,
-    "horas_observadas": 318.1,
-    "horas_funcionando": 263.3,
-    "horas_caido": 54.84,
-    "fallas": 1,
-    "falla_abierta": false,
-    "MTBF_h": 263.3,
-    "MTTR_h": 54.84,
-    "disponibilidad": 82.76,
+    "tasa_exito_corridas": 75.8,
+    "peticiones": 961,
+    "peticiones_ok": 639,
+    "tasa_exito_peticiones": 66.5,
+    "horas_observadas": 322.0,
+    "horas_funcionando": 267.1,
+    "horas_caido": 54.9,
+    "fallas": 2,
+    "falla_abierta": true,
+    "MTBF_h": 133.5,
+    "MTTR_h": 27.45,
+    "disponibilidad": 82.95,
     "episodios": [
       {
         "inicio": "2026-11-11 22:34:35+00:00",
         "reparada": "2026-11-14 05:24:56+00:00",
         "horas": 54.84
+      },
+      {
+        "inicio": "2026-11-25 08:29:47+00:00",
+        "reparada": "None",
+        "horas": 0.07
       }
     ]
   },
   "desde_correccion": {
     "desde": "2026-11-14 05:13:52+00:00",
-    "hasta": "2026-11-25 04:42:49+00:00",
-    "corridas": 26,
+    "hasta": "2026-11-25 08:33:44+00:00",
+    "corridas": 27,
     "corridas_exitosas": 25,
-    "tasa_exito_corridas": 96.2,
-    "peticiones": 611,
-    "peticiones_ok": 610,
-    "tasa_exito_peticiones": 99.8,
-    "horas_observadas": 263.5,
-    "horas_funcionando": 263.3,
-    "horas_caido": 0.18,
-    "fallas": 1,
-    "falla_abierta": false,
-    "MTBF_h": 263.3,
-    "MTTR_h": 0.18,
-    "disponibilidad": 99.93,
+    "tasa_exito_corridas": 92.6,
+    "peticiones": 641,
+    "peticiones_ok": 639,
+    "tasa_exito_peticiones": 99.7,
+    "horas_observadas": 267.3,
+    "horas_funcionando": 267.1,
+    "horas_caido": 0.25,
+    "fallas": 2,
+    "falla_abierta": true,
+    "MTBF_h": 133.5,
+    "MTTR_h": 0.13,
+    "disponibilidad": 99.91,
     "episodios": [
       {
         "inicio": "2026-11-14 05:13:52+00:00",
         "reparada": "2026-11-14 05:24:56+00:00",
         "horas": 0.18
+      },
+      {
+        "inicio": "2026-11-25 08:29:47+00:00",
+        "reparada": "None",
+        "horas": 0.07
       }
     ]
   },
   "ultimos_14_dias": {
     "desde": "2026-11-11 22:34:35+00:00",
-    "hasta": "2026-11-25 04:42:49+00:00",
-    "corridas": 32,
+    "hasta": "2026-11-25 08:33:44+00:00",
+    "corridas": 33,
     "corridas_exitosas": 25,
-    "tasa_exito_corridas": 78.1,
-    "peticiones": 931,
-    "peticiones_ok": 610,
-    "tasa_exito_peticiones": 65.5,
-    "horas_observadas": 318.1,
-    "horas_funcionando": 263.3,
-    "horas_caido": 54.84,
-    "fallas": 1,
-    "falla_abierta": false,
-    "MTBF_h": 263.3,
-    "MTTR_h": 54.84,
-    "disponibilidad": 82.76,
+    "tasa_exito_corridas": 75.8,
+    "peticiones": 961,
+    "peticiones_ok": 639,
+    "tasa_exito_peticiones": 66.5,
+    "horas_observadas": 322.0,
+    "horas_funcionando": 267.1,
+    "horas_caido": 54.9,
+    "fallas": 2,
+    "falla_abierta": true,
+    "MTBF_h": 133.5,
+    "MTTR_h": 27.45,
+    "disponibilidad": 82.95,
     "episodios": [
       {
         "inicio": "2026-11-11 22:34:35+00:00",
         "reparada": "2026-11-14 05:24:56+00:00",
         "horas": 54.84
+      },
+      {
+        "inicio": "2026-11-25 08:29:47+00:00",
+        "reparada": "None",
+        "horas": 0.07
       }
     ]
   },
@@ -100,12 +115,12 @@
     ]
   },
   "cron": {
-    "incrementales_ejecutadas": 28,
-    "horarios_del_cron": 51,
+    "incrementales_ejecutadas": 29,
+    "horarios_del_cron": 52,
     "desde_correccion": {
-      "horarios_del_cron": 44,
+      "horarios_del_cron": 45,
       "incrementales_exitosas": 24,
-      "porcentaje": 54.5
+      "porcentaje": 53.3
     }
   },
   "corridas": [
@@ -364,6 +379,14 @@
       "peticiones": 30,
       "ok": 30,
       "exitosa": true
+    },
+    {
+      "run_id": 45576596811,
+      "inicio": "2026-11-25 08:29:47+00:00",
+      "modo": "incremental",
+      "peticiones": 30,
+      "ok": 29,
+      "exitosa": false
     }
   ]
 }
