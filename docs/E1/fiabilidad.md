@@ -14,19 +14,19 @@ Horas en UTC. Meta (objetivo 1 de E0): disponibilidad >= 95 %.
 ## Resultados
 | Periodo | Ventana (UTC) | Corridas exitosas | Peticiones ok | Fallas | MTBF | MTTR | Disponibilidad (cumple meta) |
 |---|---|---|---|---|---|---|---|
-| Periodo completo | 2026-11-11 22:34 a 2026-11-24 22:24 | 24/31 (77.4 %) | 580/901 (64.4 %) | 1 | 257.0 h | 54.84 h | 82.41 % (no) |
-| Desde la correccion (14-nov) | 2026-11-14 05:13 a 2026-11-24 22:24 | 24/25 (96.0 %) | 580/581 (99.8 %) | 1 | 257.0 h | 0.18 h | 99.93 % (si) |
-| Ultimos 14 dias | 2026-11-11 22:34 a 2026-11-24 22:24 | 24/31 (77.4 %) | 580/901 (64.4 %) | 1 | 257.0 h | 54.84 h | 82.41 % (no) |
+| Periodo completo | 2026-11-11 22:34 a 2026-11-25 04:42 | 25/32 (78.1 %) | 610/931 (65.5 %) | 1 | 263.3 h | 54.84 h | 82.76 % (no) |
+| Desde la correccion (14-nov) | 2026-11-14 05:13 a 2026-11-25 04:42 | 25/26 (96.2 %) | 610/611 (99.8 %) | 1 | 263.3 h | 0.18 h | 99.93 % (si) |
+| Ultimos 14 dias | 2026-11-11 22:34 a 2026-11-25 04:42 | 25/32 (78.1 %) | 610/931 (65.5 %) | 1 | 263.3 h | 54.84 h | 82.76 % (no) |
 | Antes de la entrega E1 (hasta 13-nov 17:59) | 2026-11-11 22:34 a 2026-11-13 19:39 | 0/6 (0.0 %) | 0/320 (0.0 %) | 1 | 0.0 h | 45.08 h | 0.0 % (no) |
 
 Episodios de falla en el periodo completo:
 - 2026-11-11 22:34 -> 2026-11-14 05:24: 54.84 h
 
 Programacion: el cron pide una corrida cada 6 h
-(50 horarios desde la primera corrida incremental), pero GitHub ejecuto
-27 corridas incrementales: GitHub Actions no garantiza las ejecuciones
+(51 horarios desde la primera corrida incremental), pero GitHub ejecuto
+28 corridas incrementales: GitHub Actions no garantiza las ejecuciones
 programadas y omite o retrasa algunas cuando tiene alta demanda.
-Desde la correccion: 23 corridas incrementales exitosas de
-43 horarios del cron
-(53.5 %).
+Desde la correccion: 24 corridas incrementales exitosas de
+44 horarios del cron
+(54.5 %).
 Todas las corridas que GitHub si ejecuto desde entonces terminaron bien; las faltantes nunca se iniciaron.

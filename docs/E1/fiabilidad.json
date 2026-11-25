@@ -1,21 +1,21 @@
 {
   "completo": {
     "desde": "2026-11-11 22:34:35+00:00",
-    "hasta": "2026-11-24 22:24:54+00:00",
-    "corridas": 31,
-    "corridas_exitosas": 24,
-    "tasa_exito_corridas": 77.4,
-    "peticiones": 901,
-    "peticiones_ok": 580,
-    "tasa_exito_peticiones": 64.4,
-    "horas_observadas": 311.8,
-    "horas_funcionando": 257.0,
+    "hasta": "2026-11-25 04:42:49+00:00",
+    "corridas": 32,
+    "corridas_exitosas": 25,
+    "tasa_exito_corridas": 78.1,
+    "peticiones": 931,
+    "peticiones_ok": 610,
+    "tasa_exito_peticiones": 65.5,
+    "horas_observadas": 318.1,
+    "horas_funcionando": 263.3,
     "horas_caido": 54.84,
     "fallas": 1,
     "falla_abierta": false,
-    "MTBF_h": 257.0,
+    "MTBF_h": 263.3,
     "MTTR_h": 54.84,
-    "disponibilidad": 82.41,
+    "disponibilidad": 82.76,
     "episodios": [
       {
         "inicio": "2026-11-11 22:34:35+00:00",
@@ -26,19 +26,19 @@
   },
   "desde_correccion": {
     "desde": "2026-11-14 05:13:52+00:00",
-    "hasta": "2026-11-24 22:24:54+00:00",
-    "corridas": 25,
-    "corridas_exitosas": 24,
-    "tasa_exito_corridas": 96.0,
-    "peticiones": 581,
-    "peticiones_ok": 580,
+    "hasta": "2026-11-25 04:42:49+00:00",
+    "corridas": 26,
+    "corridas_exitosas": 25,
+    "tasa_exito_corridas": 96.2,
+    "peticiones": 611,
+    "peticiones_ok": 610,
     "tasa_exito_peticiones": 99.8,
-    "horas_observadas": 257.2,
-    "horas_funcionando": 257.0,
+    "horas_observadas": 263.5,
+    "horas_funcionando": 263.3,
     "horas_caido": 0.18,
     "fallas": 1,
     "falla_abierta": false,
-    "MTBF_h": 257.0,
+    "MTBF_h": 263.3,
     "MTTR_h": 0.18,
     "disponibilidad": 99.93,
     "episodios": [
@@ -51,21 +51,21 @@
   },
   "ultimos_14_dias": {
     "desde": "2026-11-11 22:34:35+00:00",
-    "hasta": "2026-11-24 22:24:54+00:00",
-    "corridas": 31,
-    "corridas_exitosas": 24,
-    "tasa_exito_corridas": 77.4,
-    "peticiones": 901,
-    "peticiones_ok": 580,
-    "tasa_exito_peticiones": 64.4,
-    "horas_observadas": 311.8,
-    "horas_funcionando": 257.0,
+    "hasta": "2026-11-25 04:42:49+00:00",
+    "corridas": 32,
+    "corridas_exitosas": 25,
+    "tasa_exito_corridas": 78.1,
+    "peticiones": 931,
+    "peticiones_ok": 610,
+    "tasa_exito_peticiones": 65.5,
+    "horas_observadas": 318.1,
+    "horas_funcionando": 263.3,
     "horas_caido": 54.84,
     "fallas": 1,
     "falla_abierta": false,
-    "MTBF_h": 257.0,
+    "MTBF_h": 263.3,
     "MTTR_h": 54.84,
-    "disponibilidad": 82.41,
+    "disponibilidad": 82.76,
     "episodios": [
       {
         "inicio": "2026-11-11 22:34:35+00:00",
@@ -100,12 +100,12 @@
     ]
   },
   "cron": {
-    "incrementales_ejecutadas": 27,
-    "horarios_del_cron": 50,
+    "incrementales_ejecutadas": 28,
+    "horarios_del_cron": 51,
     "desde_correccion": {
-      "horarios_del_cron": 43,
-      "incrementales_exitosas": 23,
-      "porcentaje": 53.5
+      "horarios_del_cron": 44,
+      "incrementales_exitosas": 24,
+      "porcentaje": 54.5
     }
   },
   "corridas": [
@@ -355,6 +355,14 @@
       "modo": "incremental",
       "peticiones": 20,
       "ok": 20,
+      "exitosa": true
+    },
+    {
+      "run_id": 45548559868,
+      "inicio": "2026-11-25 04:42:32+00:00",
+      "modo": "incremental",
+      "peticiones": 30,
+      "ok": 30,
       "exitosa": true
     }
   ]
