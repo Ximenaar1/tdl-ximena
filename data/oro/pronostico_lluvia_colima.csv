@@ -1,0 +1,7 @@
+mes,municipio,modelo,pronostico_mm,minimo_95_mm,maximo_95_mm
+2026-11,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,130.5
+2026-12,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,115.8
+2027-01,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,111.3
+2027-02,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,107.7
+2027-03,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,103.2
+2027-04,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,102.5
