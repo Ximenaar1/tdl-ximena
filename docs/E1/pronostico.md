@@ -86,6 +86,6 @@ Correccion: (1) los modelos ETS usan `initialization_method="heuristic"` (estado
 orden de las sumas no varie; (3) cada corrida guarda la huella de los datos y las versiones usadas, para fijarlas en
 `requirements.txt` y poder distinguir si un cambio de resultado viene de los datos o del software.
 
-- Huella de los datos (SHA-256 de `clima_municipio_mes.csv`): `a80da1ecbbc04e3fa40296e9ecb548f5cc29f5c2adb77601be5073589a4c0891`
+- Huella de los datos (SHA-256 de `clima_municipio_mes.csv`): `b37eef955c2bb1c0dec6585c8d1297e412422c39e8dddc6ae2b025ad3e02b98c`
 - Python 3.11.18; versiones: {'statsmodels': '0.15.0', 'pandas': '3.1.1', 'numpy': '2.4.6', 'scipy': '1.17.1', 'matplotlib': '3.11.2'}
 - Convergencia del optimizador por modelo: {'Suavizamiento exponencial simple [mm]': True, 'Holt (tendencia) [mm]': True, 'Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm]': True, 'SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]': True, 'Suavizamiento exponencial simple [log]': True, 'Holt (tendencia) [log]': True, 'Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log]': True, 'SARIMA(1, 0, 0)x(1, 1, 1, 12) [log]': True}

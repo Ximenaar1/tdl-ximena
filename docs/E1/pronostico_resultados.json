@@ -5,7 +5,7 @@
   "n_entrenamiento": 58,
   "n_prueba": 12,
   "reproducibilidad": {
-    "sha256_datos": "a80da1ecbbc04e3fa40296e9ecb548f5cc29f5c2adb77601be5073589a4c0891",
+    "sha256_datos": "b37eef955c2bb1c0dec6585c8d1297e412422c39e8dddc6ae2b025ad3e02b98c",
     "python": "3.11.18",
     "versiones": {
       "statsmodels": "0.15.0",
