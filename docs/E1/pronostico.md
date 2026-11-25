@@ -24,40 +24,54 @@ Correlacion cruzada de la lluvia del mes t con la variable k meses antes:
 
 ![correlacion cruzada](figuras/correlacion_cruzada.png)
 
-## 3. Cuatro modelos y seleccion por error en prueba
-SARIMA: busqueda de ordenes por AIC en el entrenamiento; los 5 mejores: [{'orden': '(0, 0, 0)', 'estacional': '(0, 1, 1, 12)', 'AIC': np.float64(558.6)}, {'orden': '(0, 0, 0)', 'estacional': '(1, 1, 1, 12)', 'AIC': np.float64(559.2)}, {'orden': '(1, 0, 0)', 'estacional': '(0, 1, 1, 12)', 'AIC': np.float64(560.4)}, {'orden': '(0, 0, 1)', 'estacional': '(0, 1, 1, 12)', 'AIC': np.float64(560.4)}, {'orden': '(1, 0, 0)', 'estacional': '(1, 1, 1, 12)', 'AIC': np.float64(561.1)}].
+## 3. Cuatro modelos, dos escalas y seleccion por error en prueba
+Cada modelo se ajusto en dos escalas: **mm** (milimetros directos) y **log** (se modela log(1 + mm) y el pronostico se regresa a mm con exp(x) - 1). El error siempre se mide en mm sobre los 12 meses de prueba.
+SARIMA: busqueda de ordenes por AIC en el entrenamiento, por escala; los 5 mejores: {'mm': [{'orden': '(0, 0, 0)', 'estacional': '(0, 1, 1, 12)', 'AIC': 558.6}, {'orden': '(0, 0, 0)', 'estacional': '(1, 1, 1, 12)', 'AIC': 559.2}, {'orden': '(1, 0, 0)', 'estacional': '(0, 1, 1, 12)', 'AIC': 560.4}, {'orden': '(0, 0, 1)', 'estacional': '(0, 1, 1, 12)', 'AIC': 560.4}, {'orden': '(1, 0, 0)', 'estacional': '(1, 1, 1, 12)', 'AIC': 561.1}], 'log': [{'orden': '(1, 0, 0)', 'estacional': '(1, 1, 1, 12)', 'AIC': 134.2}, {'orden': '(1, 0, 0)', 'estacional': '(0, 1, 1, 12)', 'AIC': 134.3}, {'orden': '(0, 0, 1)', 'estacional': '(1, 1, 1, 12)', 'AIC': 134.4}, {'orden': '(0, 0, 1)', 'estacional': '(0, 1, 1, 12)', 'AIC': 134.5}, {'orden': '(1, 0, 0)', 'estacional': '(1, 1, 0, 12)', 'AIC': 134.7}]}.
 
-| Modelo | MAE (mm) | RMSE (mm) | MAPE* | AIC (entrenamiento) |
+| Modelo [escala] | MAE (mm) | RMSE (mm) | MAPE* | AIC (entrenamiento) |
 |---|---|---|---|---|
-| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) | 43.7 | 67.0 | 73.1 % | 697.1 |
-| SARIMA(0, 0, 0)x(0, 1, 1, 12) | 44.1 | 69.5 | 74.5 % | 558.6 |
-| Suavizamiento exponencial simple | 117.1 | 141.4 | 1566.4 % | 742.3 |
-| Holt (tendencia) | 131.3 | 154.1 | 1700.3 % | 746.3 |
+| SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm] | 44.1 | 69.5 | 74.5 % | 558.6 |
+| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log] | 45.4 | 74.3 | 66.2 % | 166.7 |
+| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm] | 47.3 | 74.8 | 82.9 % | 700.1 |
+| SARIMA(1, 0, 0)x(1, 1, 1, 12) [log] | 52.0 | 80.5 | 70.5 % | 134.2 |
+| Suavizamiento exponencial simple [log] | 109.0 | 129.4 | 1431.4 % | 227.1 |
+| Suavizamiento exponencial simple [mm] | 117.1 | 141.4 | 1566.4 % | 742.3 |
+| Holt (tendencia) [mm] | 131.3 | 154.2 | 1700.6 % | 746.3 |
+| Holt (tendencia) [log] | 248.5 | 253.0 | 2225.2 % | 231.0 |
 
 \* MAPE calculado solo en los meses de prueba con lluvia real de 1 mm o mas (con 0 mm el porcentaje no existe).
-Criterio de seleccion: **menor MAE**. Modelo ganador: **Holt-Winters (tendencia amortiguada + estacionalidad aditiva)**.
+El AIC solo es comparable entre modelos de la misma familia y la misma escala; por eso la seleccion se hace con el error en prueba.
+Criterio de seleccion: **menor MAE**. Modelo ganador: **SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]**.
 
 ![comparacion](figuras/comparacion_modelos.png)
 
-## 4. Pronostico a 6 meses (modelo ganador reajustado con toda la serie)
+## 4. Pronostico a 12 meses (modelo ganador reajustado con toda la serie)
 | Mes | Pronostico (mm) | Intervalo de prediccion 95 % (mm) |
 |---|---|---|
-| 2026-11 | 0.0 | 0.0 a 130.5 |
-| 2026-12 | 0.0 | 0.0 a 115.8 |
-| 2027-01 | 0.0 | 0.0 a 111.3 |
-| 2027-02 | 0.0 | 0.0 a 107.7 |
-| 2027-03 | 0.0 | 0.0 a 103.2 |
-| 2027-04 | 0.0 | 0.0 a 102.5 |
+| 2026-11 | 22.9 | 0.0 a 200.8 |
+| 2026-12 | 12.9 | 0.0 a 190.8 |
+| 2027-01 | 10.1 | 0.0 a 187.9 |
+| 2027-02 | 6.3 | 0.0 a 184.1 |
+| 2027-03 | 3.7 | 0.0 a 181.6 |
+| 2027-04 | 1.4 | 0.0 a 179.3 |
+| 2027-05 | 18.2 | 0.0 a 196.1 |
+| 2027-06 | 225.3 | 47.5 a 403.2 |
+| 2027-07 | 208.1 | 30.2 a 386.0 |
+| 2027-08 | 228.7 | 50.8 a 406.6 |
+| 2027-09 | 275.3 | 97.4 a 453.2 |
+| 2027-10 | 201.1 | 23.2 a 379.0 |
 
-Los valores negativos se recortan a 0 porque no existe lluvia negativa.
+Los valores negativos se recortan a 0 porque no existe lluvia negativa. Escala del modelo ganador: **mm**.
 
 ![pronostico](figuras/pronostico.png)
 
-**Frase para el cliente:** para 2026-11 se esperan alrededor de 0 mm de lluvia en el municipio de Colima, con un rango probable de 0 a 130 mm.
+**Frases para el cliente:**
+- Para 2026-11 se esperan alrededor de 23 mm de lluvia en el municipio de Colima, con un rango probable de 0 a 201 mm.
+- Para el mes mas lluvioso del pronostico (2027-09) se esperan alrededor de 275 mm, con un rango probable de 97 a 453 mm: conviene reservar toldos y personal con anticipacion para esa temporada.
 
 ## 5. Diagnostico de residuos del modelo ganador
-- Ljung-Box (12 rezagos): estadistico 9.48, p = 0.6618 -> residuos autocorrelacionados: no.
-- Levene (primera vs segunda mitad): estadistico 2.21, p = 0.1415 -> varianza cambia: no.
-- Shapiro-Wilk: estadistico 0.947, p = 0.0052 -> residuos no normales: si.
+- Ljung-Box (12 rezagos): estadistico 7.33, p = 0.8347 -> residuos autocorrelacionados: no.
+- Levene (primera vs segunda mitad): estadistico 0.87, p = 0.3541 -> varianza cambia: no.
+- Shapiro-Wilk: estadistico 0.85, p = 0.0 -> residuos no normales: si.
 
 ![residuos](figuras/residuos.png)

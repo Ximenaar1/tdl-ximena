@@ -1,7 +1,13 @@
 mes,municipio,modelo,pronostico_mm,minimo_95_mm,maximo_95_mm
-2026-11,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,130.5
-2026-12,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,115.8
-2027-01,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,111.3
-2027-02,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,107.7
-2027-03,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,103.2
-2027-04,colima,Holt-Winters (tendencia amortiguada + estacionalidad aditiva),0.0,0.0,102.5
+2026-11,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",22.9,0.0,200.8
+2026-12,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",12.9,0.0,190.8
+2027-01,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",10.1,0.0,187.9
+2027-02,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",6.3,0.0,184.1
+2027-03,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",3.7,0.0,181.6
+2027-04,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",1.4,0.0,179.3
+2027-05,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",18.2,0.0,196.1
+2027-06,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",225.3,47.5,403.2
+2027-07,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",208.1,30.2,386.0
+2027-08,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",228.7,50.8,406.6
+2027-09,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",275.3,97.4,453.2
+2027-10,colima,"SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",201.1,23.2,379.0

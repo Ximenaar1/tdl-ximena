@@ -56,102 +56,186 @@
     "5": -0.538,
     "6": -0.784
   },
-  "sarima_top5": [
-    {
-      "orden": "(0, 0, 0)",
-      "estacional": "(0, 1, 1, 12)",
-      "AIC": 558.6
-    },
-    {
-      "orden": "(0, 0, 0)",
-      "estacional": "(1, 1, 1, 12)",
-      "AIC": 559.2
-    },
-    {
-      "orden": "(1, 0, 0)",
-      "estacional": "(0, 1, 1, 12)",
-      "AIC": 560.4
-    },
-    {
-      "orden": "(0, 0, 1)",
-      "estacional": "(0, 1, 1, 12)",
-      "AIC": 560.4
-    },
-    {
-      "orden": "(1, 0, 0)",
-      "estacional": "(1, 1, 1, 12)",
-      "AIC": 561.1
-    }
-  ],
+  "sarima_top5": {
+    "mm": [
+      {
+        "orden": "(0, 0, 0)",
+        "estacional": "(0, 1, 1, 12)",
+        "AIC": 558.6
+      },
+      {
+        "orden": "(0, 0, 0)",
+        "estacional": "(1, 1, 1, 12)",
+        "AIC": 559.2
+      },
+      {
+        "orden": "(1, 0, 0)",
+        "estacional": "(0, 1, 1, 12)",
+        "AIC": 560.4
+      },
+      {
+        "orden": "(0, 0, 1)",
+        "estacional": "(0, 1, 1, 12)",
+        "AIC": 560.4
+      },
+      {
+        "orden": "(1, 0, 0)",
+        "estacional": "(1, 1, 1, 12)",
+        "AIC": 561.1
+      }
+    ],
+    "log": [
+      {
+        "orden": "(1, 0, 0)",
+        "estacional": "(1, 1, 1, 12)",
+        "AIC": 134.2
+      },
+      {
+        "orden": "(1, 0, 0)",
+        "estacional": "(0, 1, 1, 12)",
+        "AIC": 134.3
+      },
+      {
+        "orden": "(0, 0, 1)",
+        "estacional": "(1, 1, 1, 12)",
+        "AIC": 134.4
+      },
+      {
+        "orden": "(0, 0, 1)",
+        "estacional": "(0, 1, 1, 12)",
+        "AIC": 134.5
+      },
+      {
+        "orden": "(1, 0, 0)",
+        "estacional": "(1, 1, 0, 12)",
+        "AIC": 134.7
+      }
+    ]
+  },
   "tabla": {
-    "Holt-Winters (tendencia amortiguada + estacionalidad aditiva)": {
-      "MAE": 43.7,
-      "RMSE": 67.0,
-      "MAPE": 73.1,
-      "AIC": 697.1
-    },
-    "SARIMA(0, 0, 0)x(0, 1, 1, 12)": {
+    "SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]": {
       "MAE": 44.1,
       "RMSE": 69.5,
       "MAPE": 74.5,
       "AIC": 558.6
     },
-    "Suavizamiento exponencial simple": {
+    "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log]": {
+      "MAE": 45.4,
+      "RMSE": 74.3,
+      "MAPE": 66.2,
+      "AIC": 166.7
+    },
+    "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm]": {
+      "MAE": 47.3,
+      "RMSE": 74.8,
+      "MAPE": 82.9,
+      "AIC": 700.1
+    },
+    "SARIMA(1, 0, 0)x(1, 1, 1, 12) [log]": {
+      "MAE": 52.0,
+      "RMSE": 80.5,
+      "MAPE": 70.5,
+      "AIC": 134.2
+    },
+    "Suavizamiento exponencial simple [log]": {
+      "MAE": 109.0,
+      "RMSE": 129.4,
+      "MAPE": 1431.4,
+      "AIC": 227.1
+    },
+    "Suavizamiento exponencial simple [mm]": {
       "MAE": 117.1,
       "RMSE": 141.4,
       "MAPE": 1566.4,
       "AIC": 742.3
     },
-    "Holt (tendencia)": {
+    "Holt (tendencia) [mm]": {
       "MAE": 131.3,
-      "RMSE": 154.1,
-      "MAPE": 1700.3,
+      "RMSE": 154.2,
+      "MAPE": 1700.6,
       "AIC": 746.3
+    },
+    "Holt (tendencia) [log]": {
+      "MAE": 248.5,
+      "RMSE": 253.0,
+      "MAPE": 2225.2,
+      "AIC": 231.0
     }
   },
-  "ganador": "Holt-Winters (tendencia amortiguada + estacionalidad aditiva)",
+  "ganador": "SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",
+  "escala_ganadora": "mm",
   "pronostico": {
     "2026-11": {
-      "mean": 0.0,
+      "mean": 22.9,
       "inferior": 0.0,
-      "superior": 130.5
+      "superior": 200.8
     },
     "2026-12": {
-      "mean": 0.0,
+      "mean": 12.9,
       "inferior": 0.0,
-      "superior": 115.8
+      "superior": 190.8
     },
     "2027-01": {
-      "mean": 0.0,
+      "mean": 10.1,
       "inferior": 0.0,
-      "superior": 111.3
+      "superior": 187.9
     },
     "2027-02": {
-      "mean": 0.0,
+      "mean": 6.3,
       "inferior": 0.0,
-      "superior": 107.7
+      "superior": 184.1
     },
     "2027-03": {
-      "mean": 0.0,
+      "mean": 3.7,
       "inferior": 0.0,
-      "superior": 103.2
+      "superior": 181.6
     },
     "2027-04": {
-      "mean": 0.0,
+      "mean": 1.4,
       "inferior": 0.0,
-      "superior": 102.5
+      "superior": 179.3
+    },
+    "2027-05": {
+      "mean": 18.2,
+      "inferior": 0.0,
+      "superior": 196.1
+    },
+    "2027-06": {
+      "mean": 225.3,
+      "inferior": 47.5,
+      "superior": 403.2
+    },
+    "2027-07": {
+      "mean": 208.1,
+      "inferior": 30.2,
+      "superior": 386.0
+    },
+    "2027-08": {
+      "mean": 228.7,
+      "inferior": 50.8,
+      "superior": 406.6
+    },
+    "2027-09": {
+      "mean": 275.3,
+      "inferior": 97.4,
+      "superior": 453.2
+    },
+    "2027-10": {
+      "mean": 201.1,
+      "inferior": 23.2,
+      "superior": 379.0
     }
   },
   "ljung_box": {
-    "estadistico": 9.48,
-    "p": 0.6618
+    "estadistico": 7.33,
+    "p": 0.8347
   },
   "levene": {
-    "estadistico": 2.21,
-    "p": 0.1415
+    "estadistico": 0.87,
+    "p": 0.3541
   },
   "shapiro": {
-    "estadistico": 0.947,
-    "p": 0.0052
+    "estadistico": 0.85,
+    "p": 0.0
   }
 }
