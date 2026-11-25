@@ -6,6 +6,7 @@ from .municipios import MUNICIPIOS
 
 INICIO_HISTORICO = date(2021, 1, 1)   # >= 36 meses
 REZAGO_DIAS = 7                       # la historia reciente tarda unos dias en consolidarse
+VENTANA_INCREMENTAL_DIAS = 14         # historico reciente de Open-Meteo que se vuelve a pedir en cada corrida
 
 OM_ARCHIVE = "https://archive-api.open-meteo.com/v1/archive"
 OM_FORECAST = "https://api.open-meteo.com/v1/forecast"
@@ -40,6 +41,15 @@ def peticiones(modo, hoy):
                 yield dict(fuente="nasa_power", municipio=m["clave"], inicio=ini, fin=fin,
                            url=f"{NASA}?{urlencode(q)}")
         else:
+            # Serie principal: ultimos 14 dias consolidados del historico de Open-Meteo (AC-05). Al repetir la
+            # ventana en cada corrida, una corrida omitida por GitHub no deja huecos; el pipeline conserva la
+            # captura mas reciente de cada municipio-dia.
+            fin = hoy - timedelta(days=REZAGO_DIAS)
+            ini = fin - timedelta(days=VENTANA_INCREMENTAL_DIAS - 1)
+            q = dict(latitude=m["lat"], longitude=m["lon"], start_date=ini.isoformat(),
+                     end_date=fin.isoformat(), daily=OM_DIARIAS, timezone="America/Mexico_City")
+            yield dict(fuente="openmeteo_archive", municipio=m["clave"], inicio=ini, fin=fin,
+                       url=f"{OM_ARCHIVE}?{urlencode(q)}")
             q = dict(latitude=m["lat"], longitude=m["lon"], daily=OM_DIARIAS,
                      forecast_days=7, timezone="America/Mexico_City")
             yield dict(fuente="openmeteo_forecast", municipio=m["clave"], inicio=hoy,

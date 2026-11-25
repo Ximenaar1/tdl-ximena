@@ -77,3 +77,19 @@ def test_error_final_indica_el_ultimo_estado(monkeypatch):
 
     with pytest.raises(RuntimeError, match="ultimo estado: 503"):
         ExtractorEtico(pausa=0, sesion=Sesion503({})).get("https://ejemplo.com/datos")
+
+
+def test_pausa_minima_entre_peticiones_al_mismo_dominio(monkeypatch):
+    """RNF-02: entre dos peticiones al mismo dominio pasa al menos la pausa configurada (1.5 s por defecto)."""
+    import extractores.base as base
+
+    reloj = {"t": 1000.0}
+    esperas = []
+    monkeypatch.setattr(base.time, "time", lambda: reloj["t"])
+    monkeypatch.setattr(base.time, "sleep", lambda s: (esperas.append(s), reloj.__setitem__("t", reloj["t"] + s)))
+    s = SesionFalsa({"ejemplo.com": (404, "")})
+    ext = ExtractorEtico(sesion=s)
+    assert ext.pausa >= 1
+    ext.get("https://ejemplo.com/a")
+    ext.get("https://ejemplo.com/b")
+    assert esperas and max(esperas) >= ext.pausa

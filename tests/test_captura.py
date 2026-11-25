@@ -46,11 +46,11 @@ def test_ejecutar_guarda_bronce_con_metadatos_y_bitacora(tmp_path):
     fallos = captura.ejecutar("incremental", hoy=date(2026, 11, 9), ext=ext, raiz=tmp_path)
     assert fallos == 0
     archivos = list((tmp_path / "data" / "bronce").rglob("*.json"))
-    assert len(archivos) == len(ext.llamadas) == 20
+    assert len(archivos) == len(ext.llamadas) == 30
     sobre = json.loads(archivos[0].read_text(encoding="utf-8"))
     assert {"fuente", "url", "fecha_captura_utc", "sha256_respuesta"} <= set(sobre["meta"])
     filas = list(csv.DictReader(open(tmp_path / "calidad" / "bitacora_captura.csv", encoding="utf-8")))
-    assert len(filas) == 20 and all(f["resultado"] == "ok" for f in filas)
+    assert len(filas) == 30 and all(f["resultado"] == "ok" for f in filas)
 
 
 def test_un_fallo_se_registra_y_no_detiene_la_captura(tmp_path):
@@ -59,7 +59,7 @@ def test_un_fallo_se_registra_y_no_detiene_la_captura(tmp_path):
     assert fallos == 10
     filas = list(csv.DictReader(open(tmp_path / "calidad" / "bitacora_captura.csv", encoding="utf-8")))
     assert sum(f["resultado"] == "error" for f in filas) == 10
-    assert len(filas) == 20
+    assert len(filas) == 30
 
 
 def test_verificar_bronce_detecta_menos_de_36_meses(tmp_path):
@@ -77,3 +77,12 @@ def test_historico_no_repite_tramos_ya_capturados(tmp_path):
     segunda = ExtractorFalso()
     assert captura.ejecutar("historico", hoy=hoy, ext=segunda, raiz=tmp_path) == 0
     assert segunda.llamadas == []
+
+
+def test_incremental_actualiza_la_serie_principal():
+    """AC-05: cada corrida incremental pide los ultimos 14 dias consolidados del historico de Open-Meteo."""
+    hoy = date(2026, 11, 25)
+    archivo = [p for p in fuentes.peticiones("incremental", hoy) if p["fuente"] == "openmeteo_archive"]
+    assert len(archivo) == 10
+    assert all(p["fin"] == date(2026, 11, 18) and p["inicio"] == date(2026, 11, 5) for p in archivo)
+    assert "start_date=2026-11-05" in archivo[0]["url"] and "end_date=2026-11-18" in archivo[0]["url"]

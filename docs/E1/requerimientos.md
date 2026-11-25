@@ -1,0 +1,34 @@
+# Requerimientos verificables · Observatorio de clima para eventos al aire libre en Colima
+
+## Introducción
+Este documento enlista los requerimientos del observatorio. Cada uno cumple cuatro condiciones: es **necesario** (sin él no se responde la pregunta del cliente o no se cumple una regla del proyecto), **no ambiguo** (tiene un valor o condición concreta), **verificable** (tiene una comprobación que cualquiera puede repetir) y **rastreable** (se indica de dónde sale). Los métodos de verificación son: **P** = prueba automática (pytest, corre en cada *push* en el flujo `ci`), **D** = demostración con un comando o flujo de GitHub Actions, **I** = inspección de un archivo o del código.
+
+La columna "Estado" se llenó el 24-nov-2026 con la evidencia del repositorio.
+
+## Requerimientos funcionales (RF)
+| ID | Requerimiento | Origen | Verificación | Estado |
+|---|---|---|---|---|
+| RF-01 | Cada corrida incremental de captura consulta, para los 10 municipios de Colima, el pronóstico de 7 días de Open-Meteo, los últimos 14 días consolidados del histórico de Open-Meteo (serie principal) y los últimos 10 días de NASA POWER (30 peticiones). | Propuesta E0, §5 · acción correctiva AC-05 | D: `calidad/bitacora_captura.csv` (30 filas por `run_id` incremental desde el cambio) · P: `test_ejecutar_guarda_bronce_con_metadatos_y_bitacora`, `test_incremental_actualiza_la_serie_principal` | Cumple en pruebas; [COMPLETAR: primera corrida real con 30 peticiones] |
+| RF-02 | Bronce contiene la serie diaria desde 2021-01-01, con 36 meses o más por municipio. | Rúbrica E0 · objetivo de calidad 2 | D: `python -m pipeline.verificar_bronce` · P: `test_historico_cubre_al_menos_36_meses`, `test_verificar_bronce_detecta_menos_de_36_meses` | Cumple |
+| RF-03 | Cada archivo de Bronce guarda la fecha de captura en su ruta (`fecha_captura=AAAA-MM-DD`) y cada petición queda en la bitácora con hora UTC, fuente, municipio, resultado y código HTTP. | Rúbrica E0 (metadatos de captura) | P: `test_ejecutar_guarda_bronce_con_metadatos_y_bitacora` · I: `data/bronce/` | Cumple |
+| RF-04 | Una petición fallida se registra en la bitácora y no detiene la captura de los demás municipios. | Fiabilidad (E1 Calidad) | P: `test_un_fallo_se_registra_y_no_detiene_la_captura` | Cumple |
+| RF-05 | El pipeline Bronce → Plata → Oro corre sin intervención después de cada captura. | Rúbrica E1 Ing. de Datos | D: paso "Pipeline Bronce -> Plata -> Oro" en `.github/workflows/captura.yml` · P: `test_pipeline_completo_genera_capas` | Cumple |
+| RF-06 | La integración convierte las unidades y formatos de NASA a los de Open-Meteo (fechas `AAAAMMDD` → fecha, viento m/s → km/h, -999 → vacío) y elimina duplicados conservando la captura más reciente. | Rúbrica E1 Ing. de Datos (integración) | P: `test_nasa_convierte_faltantes_y_unidades`, `test_duplicados_conservan_la_captura_mas_reciente` | Cumple |
+| RF-07 | Todo registro que incumple una regla de la puerta de calidad va a `data/cuarentena/cuarentena.csv` con su motivo; ningún registro se borra sin dejar rastro. | Rúbrica E1 Ing. de Datos (puerta de calidad) | P: `test_puerta_manda_a_cuarentena_con_motivo` · D: `docs/E1/reporte_pipeline.md` | Cumple |
+| RF-08 | Los valores atípicos (Z-score robusto > 3.5 por municipio y mes) se marcan en columnas `atipico_*` y se conservan. | Decisión del 24-nov (E1) | P: `test_atipico_se_marca_pero_no_se_borra` | Cumple |
+| RF-09 | Cada fila de Plata conserva su linaje: archivo de Bronce de origen (`archivo_bronce`) y hora de captura (`captura_utc`). | Rúbrica E2 Ing. de Datos (linaje) | I: columnas de `data/plata/clima_diario.csv.gz` y `data/oro/diccionario_datos.md` | Cumple |
+| RF-10 | El pronóstico de lluvia mensual del municipio de Colima se elige por el menor MAE en los últimos 12 meses (prueba), entre 4 modelos en 2 escalas, y se publica a 12 meses con intervalo de predicción del 95 %. | Rúbrica E1 Estadística · decisión del 24-nov | D: flujo `analisis` → `docs/E1/pronostico.md`, `data/oro/pronostico_lluvia_colima.csv` | Cumple |
+| RF-11 | El tablero publica el pronóstico con su intervalo y una frase para el cliente. | Rúbrica E1 Estadística | D: URL pública del tablero | **Pendiente** (tablero en construcción) |
+
+## Requerimientos no funcionales (RNF)
+| ID | Requerimiento | Origen | Verificación | Estado |
+|---|---|---|---|---|
+| RNF-01 | El extractor no consulta páginas que `robots.txt` prohíbe. La única excepción son las 3 APIs REST documentadas autorizadas por el Mtro. Armando Román el 12-nov-2026, y queda anotada en la bitácora. | Reglas del proyecto (scraping ético) · objetivo de calidad 3 | P: `test_sitio_web_prohibido_no_se_consulta`, `test_api_documentada_se_consulta_y_deja_nota` · I: `docs/E0/evidencia/` | Cumple |
+| RNF-02 | Entre dos peticiones al mismo dominio pasan al menos 1 s (configurado en 1.5 s), y el User-Agent incluye un correo de contacto. | Reglas del proyecto (scraping ético) | P: `test_pausa_minima_entre_peticiones_al_mismo_dominio`, `test_api_documentada_se_consulta_y_deja_nota` | Cumple |
+| RNF-03 | Ninguna capa guarda datos personales. | LFPDPPP · reglas del proyecto | I: `data/oro/diccionario_datos.md` (solo municipio, fecha y variables de clima) | Cumple |
+| RNF-04 | Disponibilidad de la captura ≥ 95 % (corridas exitosas / corridas programadas). | Objetivo de calidad 1 (E0) | D: `python -m calidad.fiabilidad` → `docs/E1/fiabilidad.md` | **No cumple**: 99.9 % sobre corridas ejecutadas desde el 14-nov, pero 53.5 % sobre los horarios del cron (ver plan SQA, acción correctiva AC-03) |
+| RNF-05 | Reproducibilidad: con los mismos datos, dos corridas del pronóstico producen los mismos archivos. | Reglas del proyecto (reproducible) | D: corridas `analisis` #3 y #4 sin cambios en las salidas · huella SHA-256 en `docs/E1/pronostico_resultados.json` | Cumple |
+| RNF-06 | Cada *push* pasa el linter (ruff), las pruebas (pytest), la puerta de datos (pandera) y la búsqueda de secretos (gitleaks). | Rúbrica E1 Calidad (integración continua) | D: flujo `ci` en verde | Cumple |
+| RNF-07 | 0 secretos en el historial y 0 vulnerabilidades abiertas en las dependencias. | Rúbrica E1 Calidad (seguridad) · Sello TDL | D: flujo `seguridad` (gitleaks y pip-audit) | [COMPLETAR con el resultado de `seguridad` #1] |
+| RNF-08 | El respaldo de Bronce se restaura idéntico (mismas huellas SHA-256 en todos los archivos). | Rúbrica E1 Calidad (respaldo probado) | P: `test_respaldo_se_restaura_identico`, `test_respaldo_detecta_archivo_alterado` · D: `python -m pipeline.respaldo_bronce` (24-nov: 580/580 archivos idénticos) | Cumple |
+| RNF-09 | Cobertura de pruebas ≥ 60 % del código. | Sello TDL (E3) | D: paso de cobertura en el flujo `ci` | [COMPLETAR con el TOTAL de `ci` #16] |
