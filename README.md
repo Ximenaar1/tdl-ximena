@@ -3,6 +3,8 @@
 Proyecto Integrador Trusted Data Lab (Ingeniería de Datos, Análisis Estadístico, Calidad en SI).
 Equipo: Jaidy Ximena Álvarez Rocha.
 
+**Tablero público:** https://clima-eventos-colima.streamlit.app/ (código en `tablero/app.py`; local: `streamlit run tablero/app.py`)
+
 **Qué observa:** lluvia, temperatura y viento en los 10 municipios de Colima, para que negocios de renta de
 mobiliario y organizadores de eventos decidan con anticipación.
 

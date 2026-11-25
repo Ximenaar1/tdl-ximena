@@ -1,6 +1,6 @@
 # Entrega E1 · Observatorio de clima para eventos al aire libre en Colima
 
-Equipo: Jaidy Ximena Álvarez Rocha (equipo de una persona) · Etiqueta: `e1` · Tablero: [COMPLETAR: URL de Streamlit]
+Equipo: Jaidy Ximena Álvarez Rocha (equipo de una persona) · Etiqueta: `e1` · Tablero: [https://clima-eventos-colima.streamlit.app/](https://clima-eventos-colima.streamlit.app/)
 
 La Mtra. Isis no tiene cuenta de GitHub, así que no se pudo agregar como colaboradora; el repositorio es público y se revisa con el enlace.
 
@@ -24,13 +24,13 @@ Los datos de Open-Meteo y NASA POWER viajan solos de Bronce a Oro después de ca
 | Estacionariedad, ACF/PACF y correlación cruzada | [pronostico.md §2](pronostico.md) | ADF p ≈ 0 → d = 0; D = 1 (s = 12); radiación solar 4 meses antes: r = 0.79 |
 | Cuatro modelos con parámetros justificados | [pronostico.md §3](pronostico.md), [pronostico.py](../../laboratorio/pronostico.py) | SES, Holt, Holt-Winters y SARIMA (órdenes por AIC), en escala mm y log |
 | Selección por error en prueba (MAE, RMSE, MAPE) | [pronostico.md §3](pronostico.md) | Gana el menor MAE en mm: SARIMA 44.1 mm; reproducible (§6) |
-| Pronóstico en el tablero con intervalo, frase y residuos | [tablero/app.py](../../tablero/app.py), [pronostico.md §4–5](pronostico.md) | Ljung-Box p = 0.83, Levene p = 0.35; residuos no normales (se informa que el intervalo de la temporada seca es muy amplio) |
+| Pronóstico en el tablero con intervalo, frase y residuos | [Tablero público](https://clima-eventos-colima.streamlit.app/), [tablero/app.py](../../tablero/app.py), [pronostico.md §4–5](pronostico.md) | Ljung-Box p = 0.83, Levene p = 0.35; residuos no normales (se informa que el intervalo de la temporada seca es muy amplio) |
 
 ## Calidad en los Sistemas de Información
 | Criterio de la rúbrica | Evidencia | Nota del equipo |
 |---|---|---|
 | Fiabilidad y disponibilidad medidas | [fiabilidad.md](fiabilidad.md), [fiabilidad.py](../../calidad/fiabilidad.py) | Desde el 14-nov: MTBF 257 h, MTTR 0.18 h, A = 99.9 %. Periodo completo: 82.4 %. Sobre horarios del cron: 53.5 % (AC-03 abierta) |
-| Seguridad | [seguridad/README.md](seguridad/README.md), [seguridad.yml](../../.github/workflows/seguridad.yml) | 0 secretos (gitleaks), 0 vulnerabilidades (pip-audit), tokens con mínimo permiso, respaldo de Bronce restaurado idéntico |
+| Seguridad | [seguridad/README.md](seguridad/README.md), [seguridad.yml](../../.github/workflows/seguridad.yml) | 0 secretos en todo el historial (gitleaks, corrida manual `45553494683`), 0 vulnerabilidades (pip-audit), tokens con mínimo permiso, respaldo de Bronce restaurado idéntico |
 | Requerimientos verificables | [requerimientos.md](requerimientos.md) | 11 RF y 9 RNF, cada uno con su prueba o demostración |
 | Plan SQA (IEEE 730) | [plan-sqa.md](../plan-sqa.md) | Equipo de una persona: sin *Quality Lead*; se compensa con integración continua e issues de los docentes |
 | Integración continua | [ci.yml](../../.github/workflows/ci.yml), [cobertura.txt](seguridad/cobertura.txt) | ruff + 33 pruebas + puerta pandera + gitleaks en cada *push*; cobertura del 65 % |
@@ -39,4 +39,4 @@ Los datos de Open-Meteo y NASA POWER viajan solos de Bronce a Oro después de ca
 [docs/relatoria-E1.md](../relatoria-E1.md)
 
 ## Issues de la entrega anterior
-[COMPLETAR: issues abiertos por los docentes sobre E0 y el commit que cierra cada uno; si no hubo, escribir "No se recibieron issues sobre E0".]
+No se recibieron issues sobre E0 (pestaña Issues del repositorio: 0 abiertos y 0 cerrados al 24-nov-2026, 23:26).

@@ -37,7 +37,7 @@ Que los datos viajaran solos de Bronce a Oro pasando por una puerta de calidad c
 **Calidad.** Medir con la bitácora en lugar de suponer cambia la conclusión: la misma captura tiene 82.4 %, 99.9 % o 53.5 % de disponibilidad según el periodo y el denominador. Por eso la definición de la métrica tiene que quedar escrita antes de medir (objetivo 1 de E0).
 
 ## 6. Evidencias
-Pipeline: `pipeline/`, `docs/E1/reporte_pipeline.md`, `docs/E1/limpieza.ipynb` · Pronóstico: `docs/E1/pronostico.md` · Tablero: [COMPLETAR: URL de Streamlit] · Fiabilidad: `docs/E1/fiabilidad.md` · Seguridad y cobertura: `docs/E1/seguridad/README.md` · Requerimientos: `docs/E1/requerimientos.md` · Plan SQA: `docs/plan-sqa.md` · PSP: `calidad/tiempo-ximena.csv`, `calidad/defectos-ximena.csv`.
+Pipeline: `pipeline/`, `docs/E1/reporte_pipeline.md`, `docs/E1/limpieza.ipynb` · Pronóstico: `docs/E1/pronostico.md` · Tablero: https://clima-eventos-colima.streamlit.app/ · Fiabilidad: `docs/E1/fiabilidad.md` · Seguridad y cobertura: `docs/E1/seguridad/README.md` · Requerimientos: `docs/E1/requerimientos.md` · Plan SQA: `docs/plan-sqa.md` · PSP: `calidad/tiempo-ximena.csv`, `calidad/defectos-ximena.csv`.
 
 ## Uso de IA generativa
 Claude (Anthropic): guía de Git y GitHub, diagnóstico de las corridas, código del pipeline, de la puerta de calidad, del pronóstico, de la fiabilidad, de la seguridad y del tablero, redacción de borradores de documentos y explicación de los resultados. Las decisiones de método y datos las tomé yo después de revisar las opciones. Los archivos subidos el 18-nov se hicieron con otra herramienta de IA. Todos los números salen de ejecutar el código del repositorio.
