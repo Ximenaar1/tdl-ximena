@@ -31,13 +31,13 @@ SARIMA: busqueda de ordenes por AIC en el entrenamiento, por escala; los 5 mejor
 | Modelo [escala] | MAE (mm) | RMSE (mm) | MAPE* | AIC (entrenamiento) |
 |---|---|---|---|---|
 | SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm] | 44.1 | 69.5 | 74.5 % | 558.6 |
-| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log] | 45.4 | 74.3 | 66.2 % | 166.7 |
-| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm] | 47.3 | 74.8 | 82.9 % | 700.1 |
+| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm] | 50.0 | 76.0 | 81.0 % | 680.5 |
 | SARIMA(1, 0, 0)x(1, 1, 1, 12) [log] | 52.0 | 80.5 | 70.5 % | 134.2 |
-| Suavizamiento exponencial simple [log] | 109.0 | 129.4 | 1431.4 % | 227.1 |
-| Suavizamiento exponencial simple [mm] | 117.1 | 141.4 | 1566.4 % | 742.3 |
-| Holt (tendencia) [mm] | 131.3 | 154.2 | 1700.6 % | 746.3 |
-| Holt (tendencia) [log] | 248.5 | 253.0 | 2225.2 % | 231.0 |
+| Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log] | 56.0 | 91.7 | 70.0 % | 149.9 |
+| Suavizamiento exponencial simple [log] | 109.0 | 129.4 | 1431.4 % | 225.7 |
+| Suavizamiento exponencial simple [mm] | 117.0 | 141.4 | 1565.8 % | 740.6 |
+| Holt (tendencia) [mm] | 175.1 | 185.7 | 1954.7 % | 745.7 |
+| Holt (tendencia) [log] | 460.6 | 503.0 | 3077.5 % | 231.2 |
 
 \* MAPE calculado solo en los meses de prueba con lluvia real de 1 mm o mas (con 0 mm el porcentaje no existe).
 El AIC solo es comparable entre modelos de la misma familia y la misma escala; por eso la seleccion se hace con el error en prueba.
@@ -75,3 +75,17 @@ Los valores negativos se recortan a 0 porque no existe lluvia negativa. Escala d
 - Shapiro-Wilk: estadistico 0.85, p = 0.0 -> residuos no normales: si.
 
 ![residuos](figuras/residuos.png)
+
+## 6. Reproducibilidad
+Diagnostico (25-nov-2026): dos corridas con **el mismo archivo de datos** (misma huella SHA-256) y el mismo codigo de
+ajuste dieron para Holt-Winters [mm] AIC 697.1 / MAE 43.7 y AIC 700.1 / MAE 47.3. Como el AIC cambio con datos
+identicos, el optimizador termino en puntos distintos: con la inicializacion "estimated" buscaba 14 estados iniciales
+ademas de los parametros de suavizamiento, un problema mal condicionado.
+Correccion: (1) los modelos ETS usan `initialization_method="heuristic"` (estados iniciales con una regla fija) y
+`maxiter=2000`; (2) el flujo `analisis` corre con un solo hilo de calculo numerico (`OMP_NUM_THREADS=1`) para que el
+orden de las sumas no varie; (3) cada corrida guarda la huella de los datos y las versiones usadas, para fijarlas en
+`requirements.txt` y poder distinguir si un cambio de resultado viene de los datos o del software.
+
+- Huella de los datos (SHA-256 de `clima_municipio_mes.csv`): `a80da1ecbbc04e3fa40296e9ecb548f5cc29f5c2adb77601be5073589a4c0891`
+- Python 3.11.18; versiones: {'statsmodels': '0.15.0', 'pandas': '3.1.1', 'numpy': '2.4.6', 'scipy': '1.17.1', 'matplotlib': '3.11.2'}
+- Convergencia del optimizador por modelo: {'Suavizamiento exponencial simple [mm]': True, 'Holt (tendencia) [mm]': True, 'Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm]': True, 'SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]': True, 'Suavizamiento exponencial simple [log]': True, 'Holt (tendencia) [log]': True, 'Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log]': True, 'SARIMA(1, 0, 0)x(1, 1, 1, 12) [log]': True}

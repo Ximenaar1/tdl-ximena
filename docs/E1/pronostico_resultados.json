@@ -4,6 +4,27 @@
   "n": 70,
   "n_entrenamiento": 58,
   "n_prueba": 12,
+  "reproducibilidad": {
+    "sha256_datos": "a80da1ecbbc04e3fa40296e9ecb548f5cc29f5c2adb77601be5073589a4c0891",
+    "python": "3.11.18",
+    "versiones": {
+      "statsmodels": "0.15.0",
+      "pandas": "3.1.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "matplotlib": "3.11.2"
+    },
+    "convergencia": {
+      "Suavizamiento exponencial simple [mm]": true,
+      "Holt (tendencia) [mm]": true,
+      "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm]": true,
+      "SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]": true,
+      "Suavizamiento exponencial simple [log]": true,
+      "Holt (tendencia) [log]": true,
+      "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log]": true,
+      "SARIMA(1, 0, 0)x(1, 1, 1, 12) [log]": true
+    }
+  },
   "perfil_estacional": {
     "01": -110.3,
     "02": -106.4,
@@ -119,17 +140,11 @@
       "MAPE": 74.5,
       "AIC": 558.6
     },
-    "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log]": {
-      "MAE": 45.4,
-      "RMSE": 74.3,
-      "MAPE": 66.2,
-      "AIC": 166.7
-    },
     "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [mm]": {
-      "MAE": 47.3,
-      "RMSE": 74.8,
-      "MAPE": 82.9,
-      "AIC": 700.1
+      "MAE": 50.0,
+      "RMSE": 76.0,
+      "MAPE": 81.0,
+      "AIC": 680.5
     },
     "SARIMA(1, 0, 0)x(1, 1, 1, 12) [log]": {
       "MAE": 52.0,
@@ -137,29 +152,35 @@
       "MAPE": 70.5,
       "AIC": 134.2
     },
+    "Holt-Winters (tendencia amortiguada + estacionalidad aditiva) [log]": {
+      "MAE": 56.0,
+      "RMSE": 91.7,
+      "MAPE": 70.0,
+      "AIC": 149.9
+    },
     "Suavizamiento exponencial simple [log]": {
       "MAE": 109.0,
       "RMSE": 129.4,
       "MAPE": 1431.4,
-      "AIC": 227.1
+      "AIC": 225.7
     },
     "Suavizamiento exponencial simple [mm]": {
-      "MAE": 117.1,
+      "MAE": 117.0,
       "RMSE": 141.4,
-      "MAPE": 1566.4,
-      "AIC": 742.3
+      "MAPE": 1565.8,
+      "AIC": 740.6
     },
     "Holt (tendencia) [mm]": {
-      "MAE": 131.3,
-      "RMSE": 154.2,
-      "MAPE": 1700.6,
-      "AIC": 746.3
+      "MAE": 175.1,
+      "RMSE": 185.7,
+      "MAPE": 1954.7,
+      "AIC": 745.7
     },
     "Holt (tendencia) [log]": {
-      "MAE": 248.5,
-      "RMSE": 253.0,
-      "MAPE": 2225.2,
-      "AIC": 231.0
+      "MAE": 460.6,
+      "RMSE": 503.0,
+      "MAPE": 3077.5,
+      "AIC": 231.2
     }
   },
   "ganador": "SARIMA(0, 0, 0)x(0, 1, 1, 12) [mm]",
