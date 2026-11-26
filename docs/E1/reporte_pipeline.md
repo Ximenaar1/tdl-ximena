@@ -1,36 +1,36 @@
 # Reporte del pipeline Bronce -> Plata -> Oro
 
-Generado automaticamente el 2026-11-25T21:40:29+00:00 por `python -m pipeline.ejecutar`.
+Generado automaticamente el 2026-11-26T08:13:22+00:00 por `python -m pipeline.ejecutar`.
 
 ## Lectura y duplicados
 | Fuente | Registros leidos | Duplicados eliminados (se conserva la captura mas reciente) | Registros unicos |
 |---|---|---|---|
-| Open-Meteo (principal) | 21790 | 310 | 21480 |
-| NASA POWER (comparacion) | 23970 | 2430 | 21540 |
+| Open-Meteo (principal) | 21930 | 440 | 21490 |
+| NASA POWER (comparacion) | 24070 | 2520 | 21550 |
 
 ## Valores faltantes
 Open-Meteo: 0 faltantes en las variables principales.
-NASA POWER marca con -999 los dias que aun no procesa. En los archivos crudos hay 530 dias con -999 en lluvia; al conservar solo la captura mas reciente de cada dia quedan 20 (las capturas posteriores ya traen el dato). Faltantes finales por variable: {'nasa_tmax_c': 20, 'nasa_tmin_c': 20, 'nasa_lluvia_mm': 20, 'nasa_viento_max_kmh': 20, 'nasa_radiacion_mj_m2': 70}.
+NASA POWER marca con -999 los dias que aun no procesa. En los archivos crudos hay 550 dias con -999 en lluvia; al conservar solo la captura mas reciente de cada dia quedan 20 (las capturas posteriores ya traen el dato). Faltantes finales por variable: {'nasa_tmax_c': 20, 'nasa_tmin_c': 20, 'nasa_lluvia_mm': 20, 'nasa_viento_max_kmh': 20, 'nasa_radiacion_mj_m2': 50}.
 De los dias de NASA de los ultimos 30 dias falta el 5.6 %; de los anteriores, el 0.0 %.
 El faltante depende de la fecha (NASA publica con retraso), por lo que se clasifica como **MAR** (falta por una variable observada, la antiguedad).
 Tratamiento: **no se rellena**; la serie principal (Open-Meteo) esta completa y NASA solo se usa para comparar.
 
 ## Integracion
-Union por municipio y fecha (Open-Meteo manda). Registros integrados: 21480. Dias sin dato de NASA: 0.
+Union por municipio y fecha (Open-Meteo manda). Registros integrados: 21490. Dias sin dato de NASA: 0.
 Conflictos resueltos: nombres de variables distintos, fechas `AAAAMMDD` vs `AAAA-MM-DD`, viento de NASA en m/s convertido a km/h (x 3.6) y duplicados por capturas repetidas.
 
 ## Puerta de calidad
-Aprobados: 21480 · En cuarentena: 0 · Motivos: ninguno
+Aprobados: 21490 · En cuarentena: 0 · Motivos: ninguno
 Esquema pandera de Plata: aprobado (100 %).
 
 ## Atipicos (marcados, no eliminados)
-Z-score robusto por municipio y mes del ano, umbral 3.5: {'atipico_tmax_c': 203, 'atipico_tmin_c': 68, 'atipico_viento_max_kmh': 279, 'atipico_lluvia_mm': 39}
+Z-score robusto por municipio y mes del ano, umbral 3.5: {'atipico_tmax_c': 203, 'atipico_tmin_c': 66, 'atipico_viento_max_kmh': 279, 'atipico_lluvia_mm': 39}
 
 ## Discretizacion de la lluvia diaria
-{'sin lluvia': 14872, 'ligera': 4627, 'moderada': 1640, 'fuerte': 266, 'muy fuerte': 75}
+{'sin lluvia': 14882, 'ligera': 4627, 'moderada': 1640, 'fuerte': 266, 'muy fuerte': 75}
 
 ## Reduccion
-De 21480 registros diarios a 710 registros mensuales: reduccion del 96.7 %.
+De 21490 registros diarios a 710 registros mensuales: reduccion del 96.7 %.
 Se pierde la variacion dentro del mes (dias exactos e intensidad diaria); se conservan dias de lluvia y lluvia maxima diaria.
 
 ## Normalizacion (meses completos, municipio-mes)
@@ -42,4 +42,4 @@ Se pierde la variacion dentro del mes (dias exactos e intensidad diaria); se con
 Interpretacion: con min-max, un solo mes extremo fija el maximo y la mayoria de los meses quedan apretados cerca de 0 (mediana de la lluvia 0.033); el z-score conserva la forma y deja ver que hay meses a mas de 4 desviaciones. Para comparar variables en PCA (E3) se usara z-score.
 
 ## Salidas
-Plata: 21480 registros · Oro municipio-mes: 710 · Oro zona-mes: 213
+Plata: 21490 registros · Oro municipio-mes: 710 · Oro zona-mes: 213

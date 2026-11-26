@@ -14,9 +14,9 @@ Horas en UTC. Meta (objetivo 1 de E0): disponibilidad >= 95 %.
 ## Resultados
 | Periodo | Ventana (UTC) | Corridas exitosas | Peticiones ok | Fallas | MTBF | MTTR | Disponibilidad (cumple meta) |
 |---|---|---|---|---|---|---|---|
-| Periodo completo | 2026-11-11 22:34 a 2026-11-25 21:40 | 26/34 (76.5 %) | 669/991 (67.5 %) | 2 | 133.5 h | 34.01 h | 79.7 % (no) |
-| Desde la correccion (14-nov) | 2026-11-14 05:13 a 2026-11-25 21:40 | 26/28 (92.9 %) | 669/671 (99.7 %) | 2 | 133.5 h | 6.68 h | 95.24 % (si) |
-| Ultimos 14 dias | 2026-11-11 22:34 a 2026-11-25 21:40 | 26/34 (76.5 %) | 669/991 (67.5 %) | 2 | 133.5 h | 34.01 h | 79.7 % (no) |
+| Periodo completo | 2026-11-11 22:34 a 2026-11-26 08:13 | 27/35 (77.1 %) | 699/1021 (68.5 %) | 2 | 138.8 h | 34.01 h | 80.32 % (no) |
+| Desde la correccion (14-nov) | 2026-11-14 05:13 a 2026-11-26 08:13 | 27/29 (93.1 %) | 699/701 (99.7 %) | 2 | 138.8 h | 6.68 h | 95.41 % (si) |
+| Ultimos 14 dias | 2026-11-12 19:52 a 2026-11-26 08:13 | 27/33 (81.8 %) | 699/881 (79.3 %) | 2 | 138.8 h | 23.36 h | 85.6 % (no) |
 | Antes de la entrega E1 (hasta 13-nov 17:59) | 2026-11-11 22:34 a 2026-11-13 19:39 | 0/6 (0.0 %) | 0/320 (0.0 %) | 1 | 0.0 h | 45.08 h | 0.0 % (no) |
 
 Episodios de falla en el periodo completo:
@@ -24,10 +24,10 @@ Episodios de falla en el periodo completo:
 - 2026-11-25 08:29 -> 2026-11-25 21:40: 13.18 h
 
 Programacion: el cron pide una corrida cada 6 h
-(54 horarios desde la primera corrida incremental), pero GitHub ejecuto
-30 corridas incrementales: GitHub Actions no garantiza las ejecuciones
+(56 horarios desde la primera corrida incremental), pero GitHub ejecuto
+31 corridas incrementales: GitHub Actions no garantiza las ejecuciones
 programadas y omite o retrasa algunas cuando tiene alta demanda.
-Desde la correccion: 25 corridas incrementales exitosas de
-47 horarios del cron
-(53.2 %).
+Desde la correccion: 26 corridas incrementales exitosas de
+49 horarios del cron
+(53.1 %).
 Todas las corridas que GitHub si ejecuto desde entonces terminaron bien; las faltantes nunca se iniciaron.
