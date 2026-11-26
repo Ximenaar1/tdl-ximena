@@ -1,16 +1,16 @@
 # Reporte del pipeline Bronce -> Plata -> Oro
 
-Generado automaticamente el 2026-11-26T08:13:22+00:00 por `python -m pipeline.ejecutar`.
+Generado automaticamente el 2026-11-26T21:29:20+00:00 por `python -m pipeline.ejecutar`.
 
 ## Lectura y duplicados
 | Fuente | Registros leidos | Duplicados eliminados (se conserva la captura mas reciente) | Registros unicos |
 |---|---|---|---|
-| Open-Meteo (principal) | 21930 | 440 | 21490 |
-| NASA POWER (comparacion) | 24070 | 2520 | 21550 |
+| Open-Meteo (principal) | 22070 | 580 | 21490 |
+| NASA POWER (comparacion) | 24170 | 2620 | 21550 |
 
 ## Valores faltantes
 Open-Meteo: 0 faltantes en las variables principales.
-NASA POWER marca con -999 los dias que aun no procesa. En los archivos crudos hay 550 dias con -999 en lluvia; al conservar solo la captura mas reciente de cada dia quedan 20 (las capturas posteriores ya traen el dato). Faltantes finales por variable: {'nasa_tmax_c': 20, 'nasa_tmin_c': 20, 'nasa_lluvia_mm': 20, 'nasa_viento_max_kmh': 20, 'nasa_radiacion_mj_m2': 50}.
+NASA POWER marca con -999 los dias que aun no procesa. En los archivos crudos hay 570 dias con -999 en lluvia; al conservar solo la captura mas reciente de cada dia quedan 20 (las capturas posteriores ya traen el dato). Faltantes finales por variable: {'nasa_tmax_c': 20, 'nasa_tmin_c': 20, 'nasa_lluvia_mm': 20, 'nasa_viento_max_kmh': 20, 'nasa_radiacion_mj_m2': 50}.
 De los dias de NASA de los ultimos 30 dias falta el 5.6 %; de los anteriores, el 0.0 %.
 El faltante depende de la fecha (NASA publica con retraso), por lo que se clasifica como **MAR** (falta por una variable observada, la antiguedad).
 Tratamiento: **no se rellena**; la serie principal (Open-Meteo) esta completa y NASA solo se usa para comparar.
